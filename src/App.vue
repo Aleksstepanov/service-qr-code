@@ -1,11 +1,12 @@
 <template>
-  <router-view />
+  <LayoutBroker
+    :layouts="layouts"
+    :current="$route.meta.layout"
+    :pageWrapperClasses="['layout__content']"
+  />
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'App'
-})
+<script setup>
+import LayoutBroker from 'src/layouts/LayoutBroker.vue'
+import layouts from 'src/layouts'
 </script>

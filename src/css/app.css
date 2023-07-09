@@ -1,1 +1,163 @@
 /* app global css */
+@import url("./normalize.css");
+@import url("./spacing.css");
+
+:root {
+  --primary-color-500: #007bfc;
+  --primary-color-400: #3c62f1;
+
+  --white-color-50: #dae7ff;
+  --white-color-200: #007bfc;
+  --blue-color-300: #007bfc;
+  --blue-color-400: #3c62f1;
+  --blue-color-500: #0047e4;
+  --blue-color-600: #003eda;
+  --blue-color-700: #0034cc;
+  --blue-color-800: #0029bf;
+  --blue-color-900: #000da6;
+
+  --grey-color-500: #adadad;
+  --grey-color-50: #ffffff;
+  --grey-color-100: #ffffff;
+  --grey-color-200: #fefefe;
+  --grey-color-300: #fefefe;
+  --grey-color-400: #cbcbcb;
+  --grey-color-500: #adadad;
+  --grey-color-600: #838383;
+  --grey-color-700: #6f6f6f;
+  --grey-color-800: #4f4f4f;
+  --grey-color-900: #2e2e2e;
+
+  --error-color: #e46962;
+
+  --default-color: #c9e6fe;
+
+  --message-color: #313033;
+
+  --app-min-width: 4.8rem;
+  --app-min-height: 92.6rem;
+
+  --spacer-0: 0rem;
+  --spacer-4: 0.4rem;
+  --spacer-6: 0.6rem;
+  --spacer-8: 0.8rem;
+  --spacer-12: 1.2rem;
+  --spacer-16: 1.6rem;
+  --spacer-20: 2rem;
+  --spacer-24: 2.4rem;
+  --spacer-28: 2.8rem;
+  --spacer-32: 3.2rem;
+  --spacer-40: 4rem;
+  --spacer-60: 6rem;
+}
+html {
+  font-size: 10px;
+}
+.layout {
+  display: flex;
+  background: var(--grey-color-50);
+}
+
+/* inputs */
+.input {
+  max-width: 40rem;
+  width: 100%;
+  height: 5.6rem;
+  padding: 0px;
+  background: var(--grey-color-50);
+  box-sizing: border-box;
+  /* opacity: 0.16; */
+  border: 1px solid #aeaaae;
+  border-radius: 4px;
+}
+
+/* buttons */
+.button {
+  display: flex;
+  max-width: 40rem;
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3),
+    0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+.button-primary {
+  background: var(--primary-color-400);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2.2rem;
+  line-height: 2.8rem;
+  color: var(--grey-color-50);
+}
+.button-default {
+  background: var(--default-color);
+  color: #1c1b1f;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2.2rem;
+  line-height: 2.8rem;
+}
+.button-danger {
+  background: #e46962;
+  color: var(--grey-color-50);
+}
+
+/* logo */
+.font--logo {
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.6rem;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #b2b2b2;
+}
+
+/* text */
+.text-h1 {
+  font-style: normal;
+  font-weight: 550;
+  font-size: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  color: var(--message-color);
+}
+.text_h1 {
+
+font-style: normal;
+font-weight: 40rem;
+font-size: 3.6rem;
+line-height: 4.4rem;
+text-align: center;
+color: var(--message-color)
+}
+.text-p {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2.2rem;
+  line-height: 2.2rem;
+  text-align: center;
+  letter-spacing: 0.03em;
+  color: var(--message-color);
+}
+.text-button-primary {
+  font-style: normal;
+  font-weight: 550;
+  font-size: 2rem;
+  line-height: 2rem;
+  text-align: center;
+  letter-spacing: 0.04em;
+  color: var(--grey-color-50);
+}
+.text-menu-item {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  letter-spacing: 0.1px;
+  color: #484649;
+}
+.text-bold {
+  font-weight: bold;
+}
