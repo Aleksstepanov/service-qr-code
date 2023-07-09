@@ -4,7 +4,7 @@ export const useAuthStore = defineStore({
   id: 'auth',
   state: () => ({
     accessToken: localStorage.getItem('accessToken'),
-    isMobile: localStorage.getItem('is-mobile')
+    user: localStorage.getItem('userInfo')
   }),
   getters: {
     isAuthenticated (state) {
@@ -12,12 +12,17 @@ export const useAuthStore = defineStore({
     }
   },
   actions: {
-    async authenticate ({ accessToken }) {
+    authenticate ({ accessToken }) {
       this.accessToken = accessToken
       localStorage.setItem('accessToken', accessToken)
     },
+    setUser ({ user }) {
+      this.user = user
+      localStorage.setItem('userInfo', user)
+    },
     logout (refresh = true) {
       localStorage.removeItem('accessToken')
+      localStorage.removeItem('userInfo')
       if (refresh) window.location.reload(false)
     }
   }

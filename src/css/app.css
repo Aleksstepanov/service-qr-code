@@ -161,3 +161,9 @@ color: var(--message-color)
 .text-bold {
   font-weight: bold;
 }
+
+/* forms */
+.form-login {
+  max-width: 40rem;
+  width: 100%;
+}

@@ -11,5 +11,9 @@
 "languageStylus.useBuiltinFunctions": false,
 "[vue]": {
 	"editor.defaultFormatter": "esbenp.prettier-vscode"
-}
+},
+"cSpell.words": [
+	"axios",
+	"composables"
+]
 }
