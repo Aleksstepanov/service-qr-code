@@ -10,7 +10,7 @@
                @click="toggleLeftDrawer" />
 
         <q-toolbar-title>
-          <p class="q-mb-none">Мониторинг отделки</p>
+          <p class="q-mb-none">Сервис обработки платежных квитанций</p>
         </q-toolbar-title>
         <q-btn icon="more_vert" flat/>
       </q-toolbar>
