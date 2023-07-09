@@ -22,8 +22,8 @@
               bordered
     >
       <q-list style="max-width: 304px;">
-        <q-item v-for="(item, idx) in navList"
-                :key="idx"
+        <q-item v-for="item in navListSideBar"
+                :key="item?.key"
                 v-ripple
                 clickable
                 @click="clickNavItem(item?.type)"
@@ -32,7 +32,7 @@
             <q-icon :name="item?.icon" style="color: #938F99;" size="20px"/>
           </q-item-section>
           <q-item-section>
-            <span class="text-menu-item">{{ item.title }}</span>
+            <span class="text-menu-item">{{ item?.text }}</span>
           </q-item-section>
         </q-item>
 
@@ -47,36 +47,19 @@
 
 </template>
 <script setup>
-import { ref, computed } from 'vue'
-import navItemsList from 'src/configs/navItemsList'
+import { ref } from 'vue'
+import { navListSideBar } from 'src/services/nav/nav-items'
 import { useAuthStore } from 'src/stores/auth.store'
 
+// eslint-disable-next-line no-unused-vars
 const authStore = useAuthStore()
 
 // state
 const leftDrawerOpen = ref(false)
 
-// computed
-// @TODO
-const navList = computed(() => navItemsList?.map(item => item?.type === 'person'
-  ? {
-      ...item,
-      title: 'maindset@gmail.com'
-    }
-  : item))
-
 // methods
 const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value
-}
-const clickNavItem = type => {
-  switch (type) {
-    case 'logout':
-      authStore.logout()
-      break
-    default:
-      break
-  }
 }
 </script>
 <style scoped>
