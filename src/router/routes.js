@@ -18,6 +18,12 @@ const routes = [
     name: 'page-dashboard',
     component: () => import('pages/dashboard'),
     meta: metaAccount
+  },
+  {
+    path: '/profile',
+    name: 'page-profile',
+    component: () => import('pages/profile'),
+    meta: metaAccount
   }
 ]
 
