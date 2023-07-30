@@ -10,7 +10,7 @@
       <q-item-section>
         <q-item-label>Admin</q-item-label>
         <q-item-label caption>
-          {{ user.first_name}}{{ user.last_name }}
+          {{ firstName}}{{lastName }}
         </q-item-label>
       </q-item-section>
     </q-item>
@@ -19,7 +19,7 @@
 
     <q-card-section horizontal>
       <q-card-section>
-        Email:{{ user.email }}
+        Email:{{ user?.email }}
 
       </q-card-section>
 
@@ -32,4 +32,10 @@
   </q-card>
 </template>
 <script setup>
+import { computed } from 'vue'
+import { useAuthStore } from 'src/stores/auth.store'
+const authStore = useAuthStore()
+const lastName = computed(() => authStore?.getUser?.last_name || '')
+const firstName = computed(() => authStore?.getUser?.first_name || '')
+
 </script>

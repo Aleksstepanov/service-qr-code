@@ -9,6 +9,15 @@ export const useAuthStore = defineStore({
   getters: {
     isAuthenticated (state) {
       return !!state.accessToken
+    },
+    getUser (state) {
+      return state.user
+    },
+    getLastName (state) {
+      return state.user?.last_name || ''
+    },
+    getAvatar (state) {
+      return state.avatar?.avatar || ''
     }
   },
   actions: {
