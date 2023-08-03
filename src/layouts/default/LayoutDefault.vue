@@ -11,16 +11,19 @@
         <q-toolbar-title>
           <p class="q-mb-none">Сервис обработки платежных квитанций</p>
         </q-toolbar-title>
-        <q-btn icon="more_vert" flat @click="openUserMenu" >
-
-          <q-menu v-if="showMenu">
+        <q-btn icon="more_vert" flat>
+          <q-menu>
             <div class="row no-wrap q-pa-md">
               <div class="column">
                 <div class="text-h6 q-mb-md">Settings</div>
               </div>
 
               <div class="column items-center">
-                <q-avatar size="72px" class= 'cursor-pointer'  @click="goToPageProfile">
+                <q-avatar
+                  size="72px"
+                  class="cursor-pointer"
+                  @click="$router.push({ name: 'page-profile' })"
+                >
                   <img src="/admin_avatar.jpg" >
                 </q-avatar>
 
@@ -34,7 +37,7 @@
                   color="primary"
                   push
                   size="sm"
-                  @click="confirmCloseUserMenu"
+                  @click="showConfirm = true"
                 />
               </div>
             </div>
@@ -72,20 +75,28 @@
       <slot></slot>
     </q-page-container>
   </q-layout>
+  <ConformitionDialog
+    v-model:show="showConfirm"
+    title="Вы действительно хотите выйти?"
+    title-cancel="Отмена"
+    title-confirm="Выйти"
+    @confirm="onConfirm"
+  />
 </template>
 <script setup>
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { navListSideBar } from 'src/services/nav/nav-items'
 import { useAuthStore } from 'src/stores/auth.store'
-import { useRouter } from 'vue-router'
-// import { QDialog } from '../../components/q-dialogs/QDialogConfirm.vue'
+
+import ConformitionDialog from 'src/components/conformition-dialog'
 
 // eslint-disable-next-line no-unused-vars
 const authStore = useAuthStore()
 const $router = useRouter()
+
 // state
 const leftDrawerOpen = ref(false)
-const showMenu = ref(false)
 const showConfirm = ref(false)
 
 const lastName = computed(() => authStore?.getUser?.last_name || 'Error')
@@ -95,14 +106,8 @@ const firstName = computed(() => authStore?.getUser?.first_name || '')
 const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
-const openUserMenu = () => {
-  showMenu.value = true
-}
-const confirmCloseUserMenu = () => {
-  showConfirm.value = true
-}
-const goToPageProfile = () => {
-  $router.push({ name: 'page-profile' })
+const onConfirm = () => {
+  authStore.logout()
 }
 
 </script>
