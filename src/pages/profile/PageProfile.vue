@@ -26,7 +26,7 @@
       <q-separator vertical />
 
       <q-card-section class="col-4">
-        {{ lorem }}
+        {{ userDescription  }}
       </q-card-section>
     </q-card-section>
   </q-card>
@@ -36,6 +36,6 @@ import { computed } from 'vue'
 import { useAuthStore } from 'src/stores/auth.store'
 const authStore = useAuthStore()
 const lastName = computed(() => authStore?.getUser?.last_name || '')
-const firstName = computed(() => authStore?.getUser?.first_name || '')
-
+const firstName = computed(() => authStore?.getFirstName || '')
+const userDescription = computed(() => authStore?.getUser?.text || '')
 </script>

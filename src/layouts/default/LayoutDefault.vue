@@ -11,35 +11,35 @@
         <q-toolbar-title>
           <p class="q-mb-none">Сервис обработки платежных квитанций</p>
         </q-toolbar-title>
-        <q-btn icon="more_vert" flat @click="openBurger" />
+        <q-btn icon="more_vert" flat @click="openUserMenu" >
 
-        <q-menu v-if="show">
-          <div class="row no-wrap q-pa-md">
-            <div class="column">
-              <div class="text-h6 q-mb-md">Settings</div>
-              <q-toggle v-model="mobileData" label="Use Mobile Data" />
-              <q-toggle v-model="bluetooth" label="Bluetooth" />
-            </div>
-
-            <div class="column items-center">
-              <q-avatar size="72px" @click="goToPageProfile">
-                <img src="/admin_avatar.jpg" >
-              </q-avatar>
-
-              <div class="text-subtitle1 q-mt-md q-mb-xs">
-                {{ firstName }} {{ lastName }}
+          <q-menu v-if="showMenu">
+            <div class="row no-wrap q-pa-md">
+              <div class="column">
+                <div class="text-h6 q-mb-md">Settings</div>
               </div>
 
-              <q-btn
-                v-close-popup
-                color="primary"
-                label="Logout"
-                push
-                size="sm"
-              />
+              <div class="column items-center">
+                <q-avatar size="72px" class= 'cursor-pointer'  @click="goToPageProfile">
+                  <img src="/admin_avatar.jpg" >
+                </q-avatar>
+
+                <div class="text-subtitle1 q-mt-md q-mb-xs">
+                  {{ firstName }} {{ lastName }}
+                </div>
+
+                <q-btn
+                  v-close-popup
+                  label="Logout"
+                  color="primary"
+                  push
+                  size="sm"
+                  @click="confirmCloseUserMenu"
+                />
+              </div>
             </div>
-          </div>
-        </q-menu>
+          </q-menu>
+        </q-btn>
       </q-toolbar>
     </q-header>
 
@@ -78,13 +78,16 @@ import { ref, computed } from 'vue'
 import { navListSideBar } from 'src/services/nav/nav-items'
 import { useAuthStore } from 'src/stores/auth.store'
 import { useRouter } from 'vue-router'
+// import { QDialog } from '../../components/q-dialogs/QDialogConfirm.vue'
 
 // eslint-disable-next-line no-unused-vars
 const authStore = useAuthStore()
 const $router = useRouter()
 // state
 const leftDrawerOpen = ref(false)
-const show = ref(false)
+const showMenu = ref(false)
+const showConfirm = ref(false)
+
 const lastName = computed(() => authStore?.getUser?.last_name || 'Error')
 const firstName = computed(() => authStore?.getUser?.first_name || '')
 
@@ -92,12 +95,16 @@ const firstName = computed(() => authStore?.getUser?.first_name || '')
 const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
-const openBurger = () => {
-  show.value = true
+const openUserMenu = () => {
+  showMenu.value = true
+}
+const confirmCloseUserMenu = () => {
+  showConfirm.value = true
 }
 const goToPageProfile = () => {
   $router.push({ name: 'page-profile' })
 }
+
 </script>
 <style scoped>
 .layout--default {

@@ -16,8 +16,14 @@ export const useAuthStore = defineStore({
     getLastName (state) {
       return state.user?.last_name || ''
     },
+    getFirstName (state) {
+      return state.user?.first_name || ''
+    },
+    getuserDescription (state) {
+      return state.user?.text || ''
+    },
     getAvatar (state) {
-      return state.avatar?.avatar || ''
+      return state.user?.avatar || ''
     }
   },
   actions: {

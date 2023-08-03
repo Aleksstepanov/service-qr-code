@@ -18,7 +18,9 @@ mock.onPost('/api/account/sign-in').reply(async (config) => {
           role: 'admin',
           avatar: '/admin_avatar.jpg',
           first_name: 'John',
-          last_name: 'Doe'
+          last_name: 'Doe',
+          text: 'lorem ipsum'
+
         }
       }]
     }
