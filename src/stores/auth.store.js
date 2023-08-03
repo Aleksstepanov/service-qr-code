@@ -4,7 +4,7 @@ export const useAuthStore = defineStore({
   id: 'auth',
   state: () => ({
     accessToken: localStorage.getItem('accessToken'),
-    user: localStorage.getItem('userInfo')
+    user: null
   }),
   getters: {
     isAuthenticated (state) {
@@ -33,7 +33,7 @@ export const useAuthStore = defineStore({
     },
     setUser ({ user }) {
       this.user = user
-      localStorage.setItem('userInfo', user)
+      localStorage.setItem('userInfo', JSON.stringify(user))
     },
     logout (refresh = true) {
       localStorage.removeItem('accessToken')
