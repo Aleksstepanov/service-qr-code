@@ -2,44 +2,48 @@
   <q-layout view="hHh lpR fFf" class="layout layout--default">
     <q-header elevated class="bg-primary text-white">
       <q-toolbar>
-        <q-btn dense
-               flat
-               round
-               icon="menu"
-               @click="toggleLeftDrawer" />
-
+        <UiBtn
+          :dense="true"
+          :flat="flat"
+          :round="true"
+          icon="menu"
+          @click="toggleLeftDrawer"
+        />
         <q-toolbar-title>
           <p class="q-mb-none">Сервис обработки платежных квитанций</p>
         </q-toolbar-title>
-        <q-btn icon="more_vert" flat @click="openBurger" />
-
-        <q-menu v-if="show">
-          <div class="row no-wrap q-pa-md">
-            <div class="column">
-              <div class="text-h6 q-mb-md">Settings</div>
-              <q-toggle v-model="mobileData" label="Use Mobile Data" />
-              <q-toggle v-model="bluetooth" label="Bluetooth" />
-            </div>
-
-            <div class="column items-center">
-              <q-avatar size="72px" @click="goToPageProfile">
-                <img src="/admin_avatar.jpg" >
-              </q-avatar>
-
-              <div class="text-subtitle1 q-mt-md q-mb-xs">
-                {{ firstName }} {{ lastName }}
+        <UiBtn icon="more_vert" :flat="flat">
+          <q-menu>
+            <div class="row no-wrap q-pa-md">
+              <div class="column">
+                <div class="text-h6 q-mb-md">Settings</div>
               </div>
 
-              <q-btn
-                v-close-popup
-                color="primary"
-                label="Logout"
-                push
-                size="sm"
-              />
+              <div class="column items-center">
+                <q-avatar
+                  size="72px"
+                  class="cursor-pointer"
+                  @click="$router.push({ name: 'page-profile' })"
+                >
+                  <img src="/admin_avatar.jpg" >
+                </q-avatar>
+
+                <div class="text-subtitle1 q-mt-md q-mb-xs">
+                  {{ firstName }} {{ lastName }}
+                </div>
+                <UiBtn :v-close-popup="true"
+                       class="text-white primary"
+                       :label="titleLogout"
+                       color="primary"
+                       :push = "true"
+                       :size="sm"
+                       @click="showConfirm = true" />
+
+              </div>
             </div>
-          </div>
-        </q-menu>
+          </q-menu>
+        </UiBtn>
+
       </q-toolbar>
     </q-header>
 
@@ -67,24 +71,34 @@
 
     <q-page-container
       style="width: 100%"
-      class="flex justify-center align-center"
+      class="flex justify-center align-center bg-linear-gradient"
     >
       <slot></slot>
     </q-page-container>
   </q-layout>
+  <ConformitionDialog
+    v-model:show="showConfirm"
+    title="Вы действительно хотите выйти?"
+    title-cancel="Отмена"
+    title-confirm="Выйти"
+    @confirm="onConfirm"
+  />
 </template>
 <script setup>
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { navListSideBar } from 'src/services/nav/nav-items'
 import { useAuthStore } from 'src/stores/auth.store'
-import { useRouter } from 'vue-router'
-
+import UiBtn from 'src/components/ui-btn'
+import ConformitionDialog from 'src/components/conformition-dialog'
 // eslint-disable-next-line no-unused-vars
 const authStore = useAuthStore()
 const $router = useRouter()
+
 // state
 const leftDrawerOpen = ref(false)
-const show = ref(false)
+const showConfirm = ref(false)
+
 const lastName = computed(() => authStore?.getUser?.last_name || 'Error')
 const firstName = computed(() => authStore?.getUser?.first_name || '')
 
@@ -92,12 +106,16 @@ const firstName = computed(() => authStore?.getUser?.first_name || '')
 const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
-const openBurger = () => {
-  show.value = true
+const onConfirm = () => {
+  authStore.logout()
 }
-const goToPageProfile = () => {
-  $router.push({ name: 'page-profile' })
-}
+
+defineProps({
+  titleLogout: {
+    type: String,
+    default: 'Logout'
+  }
+})
 </script>
 <style scoped>
 .layout--default {
@@ -106,7 +124,7 @@ const goToPageProfile = () => {
   height: 100vh;
   /* min-height: var(--app-min-height); */
 }
-.q-page-container {
+.bg-linear-gradient {
   background: -webkit-linear-gradient(
     to right,
     #00b4ff,
@@ -114,5 +132,9 @@ const goToPageProfile = () => {
     #ffffff
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #00b4ff, #c4efff, #ffffff);
+}
+.primary{
+  background-color: #00b4ff;
+  color: var(--q-primary);
 }
 </style>

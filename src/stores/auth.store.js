@@ -4,7 +4,7 @@ export const useAuthStore = defineStore({
   id: 'auth',
   state: () => ({
     accessToken: localStorage.getItem('accessToken'),
-    user: localStorage.getItem('userInfo')
+    user: null
   }),
   getters: {
     isAuthenticated (state) {
@@ -16,8 +16,14 @@ export const useAuthStore = defineStore({
     getLastName (state) {
       return state.user?.last_name || ''
     },
+    getFirstName (state) {
+      return state.user?.first_name || ''
+    },
+    getuserDescription (state) {
+      return state.user?.text || ''
+    },
     getAvatar (state) {
-      return state.avatar?.avatar || ''
+      return state.user?.avatar || ''
     }
   },
   actions: {
@@ -26,8 +32,9 @@ export const useAuthStore = defineStore({
       localStorage.setItem('accessToken', accessToken)
     },
     setUser ({ user }) {
+      console.log(user)
       this.user = user
-      localStorage.setItem('userInfo', user)
+      localStorage.setItem('userInfo', JSON.stringify(user))
     },
     logout (refresh = true) {
       localStorage.removeItem('accessToken')
