@@ -5,6 +5,7 @@
     :label="label"
     :color="color"
     :icon="icon"
+    :type="type"
     @click="$emit('click')"
   >
     <slot></slot>
