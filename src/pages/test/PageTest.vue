@@ -13,6 +13,7 @@
 </template>
 <script setup>
 import { onMounted, reactive } from 'vue'
+import { emitter } from 'src/plugins'
 import { axios } from 'src/utils'
 import UiSection from 'src/components/ui-section/'
 import FormPageTest from './form'
@@ -46,6 +47,10 @@ const onSubmit = async ({ lastName, firstName }) => {
     })
     if (response.status === 200) {
       state.user = null
+      emitter.emit('notify', {
+        type: 'positive',
+        message: 'Success'
+      })
       await fetchData()
     }
     state.disabled = false
