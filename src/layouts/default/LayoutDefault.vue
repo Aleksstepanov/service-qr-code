@@ -56,7 +56,7 @@
           :key="item?.key"
           v-ripple
           clickable
-          @click="clickNavItem(item?.type)"
+          @click="clickNavItem(item)"
         >
           <q-item-section style="max-width: 10%">
             <q-icon :name="item?.icon" style="color: #938f99" size="20px" />
@@ -109,7 +109,9 @@ const toggleLeftDrawer = () => {
 const onConfirm = () => {
   authStore.logout()
 }
-
+const clickNavItem = ({ to }) => {
+  $router.push(to)
+}
 </script>
 <style scoped>
 .layout--default {

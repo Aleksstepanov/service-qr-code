@@ -24,6 +24,12 @@ const routes = [
     name: 'page-profile',
     component: () => import('pages/profile'),
     meta: metaAccount
+  },
+  {
+    path: '/test',
+    name: 'page-test',
+    component: () => import('pages/test'),
+    meta: metaAccount
   }
 ]
 

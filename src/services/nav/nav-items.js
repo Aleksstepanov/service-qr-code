@@ -35,5 +35,12 @@ export const navListSideBar = [
     ['READ_REPORT_OPERATORS_PAGE'],
     false,
     'Операторы отчетов'
+  ),
+  new NavItem(
+    { name: 'page-test' },
+    'page-test',
+    ['READ_REPORT_OPERATORS_PAGE'],
+    false,
+    'Тест'
   )
 ]
