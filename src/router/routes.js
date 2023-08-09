@@ -25,6 +25,7 @@ const routes = [
     component: () => import('pages/profile'),
     meta: metaAccount
   }
+
 ]
 
 export default routes
