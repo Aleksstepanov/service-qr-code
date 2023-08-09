@@ -5,7 +5,7 @@
         <UiBtn
           :dense="true"
           :flat="flat"
-          :round="true"
+          round
           icon="menu"
           @click="toggleLeftDrawer"
         />
@@ -33,13 +33,13 @@
                   {{ firstName }} {{ lastName }}
                 </div>
 
-                <UiBtn v-bind="$attrs"
-                       :v-close-popup="true"
-                       :label="titleLogout"
-                       color="primary"
-                       :push = "true"
-                       :size="sm"
-                       @click="showConfirm = true" />
+                <UiBtn
+                  :v-close-popup="true"
+                  :label="titleLogout"
+                  color="primary"
+                  :push = "true"
+                  :size="sm"
+                  @click="showConfirm = true" />
               </div>
             </div>
           </q-menu>

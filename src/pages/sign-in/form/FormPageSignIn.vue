@@ -35,13 +35,11 @@
       </q-input>
     </UiField>
     <div class="flex row justify-center full-width mt-28">
-      <UiBtn
-        class="button button-primary"
-        type="submit"
-        :disable="disabled"
+      <UiBtn class="button button-primary"
+             type="submit"
+             :disable="disabled"
       ><p class="text-button-primary q-mb-none">Войти</p>
       </UiBtn>
-
     </div>
   </q-form>
 </template>
