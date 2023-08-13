@@ -1,8 +1,10 @@
 <template>
   <q-btn v-bind="$attrs"
          :v-close-popup="vClosePopup"
+         :disabled ="disabled"
          :flat="flat"
          :label="label"
+         :mask="mask"
          :color="color"
          :icon="icon"
          :type="type"
@@ -38,6 +40,10 @@ defineProps({
     type: String,
     default: ''
   },
+  mask: {
+    type: String,
+    default: ''
+  },
   color: {
     type: String,
     default: ''
@@ -62,6 +68,7 @@ defineProps({
     type: Boolean,
     default: false
   }
+
 })
 
 // emits
