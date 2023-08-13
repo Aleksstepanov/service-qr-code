@@ -32,6 +32,7 @@ mock.onPost('/api/account/sign-in').reply(async (config) => {
     return [500, { message: 'Ошибка сервера', code: 500 }]
   }
 })
+  .onAny().passThrough()
 
 mock.onGet('/api/account/me').reply(async () => {
   try {
