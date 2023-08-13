@@ -1,61 +1,70 @@
 <template>
-  <div class="flex flex-center row">
-    <div class="flex row wrap justify-start items-start content-start bg-white " style="min-height: 400px; width: 100%; padding: 24px;">
+  <div class="full-width flex bg-white row plr-percent-2">
+    <div class="col-8">
+      <div class="flex flex-center row">
+        <div class="flex row wrap justify-start items-start content-start bg-white " style="min-height: 400px; width: 100%; padding: 24px;">
 
-      <div  class="fit col-3 column wrap justify-between items-center content-start" style="overflow: hidden;">
-        <q-input
-          v-model="fields.fullName"
-          outlined
-          dense
-          class="input "
-          type="text"
-          label="name"
-          placeholder="Enter your name"
-          :is-disabled="disabled"
+          <div  class="fit col-3 column wrap justify-between items-center content-start" style="overflow: hidden;">
+            <q-input
+              v-model="fields.fullName"
+              outlined
+              dense
+              class="input "
+              type="text"
+              label="name"
+              placeholder="Enter your name"
+              :is-disabled="disabled"
 
-        />
-        <q-input
-          outlined
-          dense
+            />
+            <q-input
+              outlined
+              dense
 
-          type="text"
-          label="family name"
-          :is-disabled="disabled"
-        />
-        <q-input
-          outlined
-          dense
-          class="input"
-          type="tel"
-          mask="phone"
-          label="Phone Number"
-          :is-disabled="disabled"
-        />
-        <q-input  v-model="fields.email"
-                  outlined
-                  dense
-                  type="email"
-                  label="Email" />
-        <q-input
-          outlined
-          dense
-          class="input"
-          type="text"
-          label="Birth Date"
-          mask="date"
-          :is-disabled="disabled"
-        />
+              type="text"
+              label="family name"
+              :is-disabled="disabled"
+            />
+            <q-input
+              outlined
+              dense
+              class="input"
+              type="tel"
+              mask="phone"
+              label="Phone Number"
+              :is-disabled="disabled"
+            />
+            <q-input  v-model="fields.email"
+                      outlined
+                      dense
+                      type="email"
+                      label="Email" />
+            <q-input
+              outlined
+              dense
+              class="input"
+              type="text"
+              label="Birth Date"
+              mask="date"
+              :is-disabled="disabled"
+            />
 
+          </div>
+
+        </div>
       </div>
+    </div>
 
+    <div class="col-4">
+      <ManageSidePanel @submit="onSubmit"/>
     </div>
   </div>
+
 </template>
 
 <script setup>
 import { reactive } from 'vue'
 import { useFormProps } from 'src/composables/form.js'
-
+import ManageSidePanel from 'src/components/manage-side-panel/ManageSidePanel.vue'
 defineProps({
   ...useFormProps(),
   disabled: {
@@ -67,9 +76,12 @@ defineProps({
     default: false
   }
 })
+const $emit = defineEmits(['update:user'])
 const fields = reactive({
   fullName: null,
   password: null
 })
-
+const onSubmit = () => {
+  $emit('update:user', fields)
+}
 </script>

@@ -1,14 +1,8 @@
 <template>
   <PagePreloader v-if="isLoading"/>
-  <div class="full-width flex bg-white row plr-percent-2">
-    <div class="col-8">
-      <FormPageProfile/>
-    </div>
-    <div class="avatar"></div>
-    <div class="col-4">
-      <ManageSidePanel @submit="onSubmit"/>
-    </div>
-  </div>
+
+  <FormPageProfile @update:user="onUpdUser($event)"/>
+
   <!-- <q-card v-else
           class="my-card"
           flat
@@ -47,7 +41,6 @@ import { axios } from 'src/utils'
 import { emitter } from 'src/plugins'
 import PagePreloader from 'src/components/page-pre-loader'
 import FormPageProfile from 'src/pages/profile/form-page-profile'
-import ManageSidePanel from 'src/components/manage-side-panel'
 const authStore = useAuthStore()
 
 // state
@@ -76,8 +69,9 @@ const fetchUser = async () => {
     })
   }
 }
-const onSubmit = () => {
-  console.log('submit')
+
+const onUpdUser = (fields) => {
+  console.log('fields', fields)
 }
 // life hooks
 onMounted(async () => await fetchUser())
