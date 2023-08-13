@@ -9,9 +9,9 @@
               v-model="fields.fullName"
               outlined
               dense
-              class="input "
               type="text"
               label="name"
+              class="full-width"
               placeholder="Enter your name"
               :is-disabled="disabled"
 

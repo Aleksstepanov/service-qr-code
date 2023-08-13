@@ -1,9 +1,11 @@
 <template>
-  <form @submit.prevent="onSubmit">
+  <form class="full-height" @submit.prevent="onSubmit">
     <div class="flex column justify-between ">
       <q-input
+        v-if="createdAt"
         dense
         outlined
+        readonly
         class=" mt-16"
         type="text"
         label="created"
