@@ -6,7 +6,7 @@
     </div>
     <div class="avatar"></div>
     <div class="col-4">
-      <ManageSidePanel @submit.prevent="onSubmit"/>
+      <ManageSidePanel @submit="onSubmit"/>
     </div>
   </div>
   <!-- <q-card v-else

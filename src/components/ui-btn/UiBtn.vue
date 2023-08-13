@@ -9,7 +9,7 @@
          :icon="icon"
          :type="type"
          :size="size"
-         @click="$emit('click')"
+         @click="type === 'submit' ? $emit('submit') : $emit('click')"
   ><slot></slot>
   </q-btn>
 </template>
