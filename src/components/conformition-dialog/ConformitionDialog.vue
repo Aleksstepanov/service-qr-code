@@ -67,3 +67,4 @@ const getShow = computed({
   set: (val) => $emit('update:show', val)
 })
 </script>
+src/components/my-btn

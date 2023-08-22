@@ -32,7 +32,6 @@ export const useAuthStore = defineStore({
       localStorage.setItem('accessToken', accessToken)
     },
     setUser ({ user }) {
-      console.log(user)
       this.user = user
       localStorage.setItem('userInfo', JSON.stringify(user))
     },
