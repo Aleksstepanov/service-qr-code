@@ -2,16 +2,18 @@
   <q-layout view="hHh lpR fFf" class="layout layout--default">
     <q-header elevated class="bg-primary text-white">
       <q-toolbar>
-        <q-btn dense
-               flat
-               round
-               icon="menu"
-               @click="toggleLeftDrawer" />
+        <UiBtn
+          :dense="true"
+          :flat="flat"
+          :round="true"
+          icon="menu"
+          @click="toggleLeftDrawer"
+        />
 
         <q-toolbar-title>
           <p class="q-mb-none">Сервис обработки платежных квитанций</p>
         </q-toolbar-title>
-        <q-btn icon="more_vert" flat>
+        <UiBtn icon="more_vert" flat>
           <q-menu>
             <div class="row no-wrap q-pa-md">
               <div class="column">
@@ -31,18 +33,17 @@
                   {{ firstName }} {{ lastName }}
                 </div>
 
-                <q-btn
-                  v-close-popup
-                  label="Logout"
-                  color="primary"
-                  push
-                  size="sm"
-                  @click="showConfirm = true"
-                />
+                <UiBtn v-bind="$attrs"
+                       :v-close-popup="true"
+                       :label="titleLogout"
+                       class="primary-white"
+                       :push = "true"
+                       :size="sm"
+                       @click="showConfirm = true" />
               </div>
             </div>
           </q-menu>
-        </q-btn>
+        </UiBtn>
       </q-toolbar>
     </q-header>
 
@@ -88,6 +89,7 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { navListSideBar } from 'src/services/nav/nav-items'
 import { useAuthStore } from 'src/stores/auth.store'
+import UiBtn from 'src/components/ui-btn/UiBtn.vue'
 
 import ConformitionDialog from 'src/components/conformition-dialog'
 
@@ -110,6 +112,13 @@ const onConfirm = () => {
   authStore.logout()
 }
 
+defineProps({
+  titleLogout: {
+    type: String,
+    default: 'Logout'
+  }
+})
+
 </script>
 <style scoped>
 .layout--default {
@@ -126,5 +135,12 @@ const onConfirm = () => {
     #ffffff
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #00b4ff, #c4efff, #ffffff);
+}
+
+.btn-logout{
+
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 0 5px;
 }
 </style>
