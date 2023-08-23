@@ -115,6 +115,7 @@ const userDescription = computed(() => authStore?.getUser?.text || '')
 const btnTestClick = () => {
   console.log('click')
 }
+
 const fetchUser = async () => {
   isLoading.value = true
   try {
@@ -148,7 +149,30 @@ function simulateProgress () {
   }, 3000)
 }
 //
+
 </script>
+
+<style scoped>
+.test-btn__wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid red;
+  padding: 10px;
+
+}
+
+.my-btn{
+  background: #02b4ff;
+  color: aliceblue;
+  padding: 5px auto;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.1rem;
+  line-height: 1.4rem;
+  cursor: pointer;
+}
+</style>
 
 <style scoped>
 .test-btn__wrapper{
