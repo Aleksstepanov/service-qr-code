@@ -1,62 +1,61 @@
 <template>
-  <div class="full-width flex bg-white row plr-percent-2">
-    <div class="col-8">
-      <div class="flex flex-center row">
-        <div class="flex row wrap justify-start items-start content-start bg-white " style="min-height: 400px; width: 100%; padding: 24px;">
+  <div class="form-page__wrapper bg-white " style="min-height: 400px;">
+    <div class="form__wrapper">
+      <form @submit.prevent="onSubmit">
+        <q-input
+          v-model="fields.fullName"
+          outlined
+          dense
+          type="text"
+          label="Name"
+          class="full-width"
+          placeholder="Enter your name"
+          :is-disabled="disabled"
 
-          <div  class="fit col-3 column wrap justify-between items-center content-start" style="overflow: hidden;">
-            <q-input
-              v-model="fields.fullName"
-              outlined
-              dense
-              type="text"
-              label="name"
-              class="full-width"
-              placeholder="Enter your name"
-              :is-disabled="disabled"
+        />
 
-            />
-            <q-input
-              outlined
-              dense
+        <q-input
+          class="full-width"
+          outlined
+          dense
+          type="tel"
+          mask="phone"
+          label="Phone"
+          :is-disabled="disabled"
+        />
 
-              type="text"
-              label="family name"
-              :is-disabled="disabled"
-            />
-            <q-input
-              outlined
-              dense
-              class="input"
-              type="tel"
-              mask="phone"
-              label="Phone Number"
-              :is-disabled="disabled"
-            />
-            <q-input  v-model="fields.email"
-                      outlined
-                      dense
-                      type="email"
-                      label="Email" />
-            <q-input
-              outlined
-              dense
-              class="input"
-              type="text"
-              label="Birth Date"
-              mask="date"
-              :is-disabled="disabled"
-            />
+        <q-input  v-model="fields.email"
+                  class="full-width"
+                  outlined
+                  dense
+                  type="email"
+                  label="Email"
+        />
+        <q-input   class="full-width"
+                   outlined
+                   dense
+                   type="text"
+                   label="Birth Date"
+                   mask="date"
+                   :is-disabled="disabled"
+        />
+        <UiBtn   dense
+                 :flat="flat"
+                 :disable="disabled"
+                 type="submit"
+                 round
+                 color="white"
+                 class="button button-colored__primary"
+                 label='Сохранить'
 
-          </div>
+        />
+      </form>
 
-        </div>
-      </div>
     </div>
-
-    <div class="col-4">
+    <div class="manage-side-panel__wrapper">
       <ManageSidePanel @submit="onSubmit"/>
     </div>
+
   </div>
 
 </template>
@@ -65,6 +64,7 @@
 import { reactive } from 'vue'
 import { useFormProps } from 'src/composables/form.js'
 import ManageSidePanel from 'src/components/manage-side-panel/ManageSidePanel.vue'
+import UiBtn from 'src/components/ui-btn/UiBtn.vue'
 defineProps({
   ...useFormProps(),
   disabled: {
@@ -85,3 +85,27 @@ const onSubmit = () => {
   $emit('update:user', fields)
 }
 </script>
+
+<style scoped>
+.form-page__wrapper{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 24px;
+}
+.form__wrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+  padding-top: 24px;
+  width: 60%;
+}
+
+.manage-side-panel__wrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 12rem;
+  padding-top: 24px;
+  width: 30%;
+}
+</style>

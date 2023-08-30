@@ -34,8 +34,10 @@
                 </div>
 
                 <UiBtn
+                  class="button"
                   :v-close-popup="true"
                   :label="titleLogout"
+                  background
                   color="primary"
                   :push = "true"
                   :size="sm"

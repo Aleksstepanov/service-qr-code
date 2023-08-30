@@ -104,6 +104,9 @@ html {
   color: var(--grey-color-50);
 }
 
+.button-colored__primary{
+  background: var(--primary-color-400);
+}
 /* logo */
 .font--logo {
   font-size: 1.6rem;

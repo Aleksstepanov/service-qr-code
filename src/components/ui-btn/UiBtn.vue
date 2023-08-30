@@ -5,6 +5,7 @@
          :flat="flat"
          :label="label"
          :mask="mask"
+         :background="background"
          :color="color"
          :icon="icon"
          :type="type"

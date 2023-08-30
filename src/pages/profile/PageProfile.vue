@@ -31,7 +31,7 @@
     <ManageSidePanel >
       <UiField full-width class="pt-20"/>
     </ManageSidePanel>
-  </q-card> -->
+  </q-card>-->
 </template>
 <script setup>
 
