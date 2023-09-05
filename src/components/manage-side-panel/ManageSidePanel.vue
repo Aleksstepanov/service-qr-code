@@ -1,5 +1,5 @@
-<template>
-  <form  @submit.prevent="onSubmit">
+<template >
+  <form  @submit.prevent="$emit('submit-panel')">
 
     <div>
       <q-input
@@ -28,7 +28,7 @@
                round
                color="white"
                class="button button-colored__primary mt-16"
-               :label="isNew? 'Создать': 'Сохранить'"
+               :label="isNew? 'Create': 'Save'"
 
       />
 
@@ -40,13 +40,14 @@
                label="CANCEL"
       />
 
-      <UiBtn   disabled="true"
-               :dense="true"
-               :flat="flat"
-               round
-               color="primary"
-               class="button button-white mt-16"
-               label="DELETE"
+      <UiBtn v-if="!isNew"
+             disabled="true"
+             :dense="true"
+             :flat="flat"
+             round
+             color="primary"
+             class="button button-white mt-16"
+             label="DELETE"
 
       ><q-icon right name="delete" /></UiBtn>
     </div>
@@ -56,9 +57,8 @@
 
 <script setup>
 // убрать icon, поставить текст по центру
-import { reactive } from 'vue'
+
 import UiBtn from 'src/components/ui-btn'
-import { useForm } from 'src/composables/form.js'
 defineProps({
   loading: {
     type: Boolean,
@@ -79,20 +79,9 @@ defineProps({
 })
 // emits
 const $emit = defineEmits('submit-panel')
-// state
-const fields = reactive({
-  email: null,
-  password: null
-})
-// computed
-const { submit } = useForm({
-  fields
 
-})
+// computed
 
 // methods
-const onSubmit = async () => {
-  const formData = await submit()
-  if (formData) $emit('submit-panel', formData)
-}
+
 </script>

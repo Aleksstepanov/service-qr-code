@@ -26,10 +26,10 @@ mock.onPost('/api/account/sign-in').reply(async (config) => {
         }
       }]
     }
-    return [401, { message: 'Неправильный логин и/или пароль', code: 401 }]
+    return [401, { message: 'Wrong username and/or password', code: 401 }]
   } catch (error) {
     console.error(error)
-    return [500, { message: 'Ошибка сервера', code: 500 }]
+    return [500, { message: 'Server error', code: 500 }]
   }
 })
 
@@ -38,6 +38,6 @@ mock.onGet('/api/account/me').reply(async () => {
     await fakeRequest(2000)
     return [200, { user: person }]
   } catch (error) {
-    return [500, { message: 'Ошибка сервера', code: 500 }]
+    return [500, { message: 'Server error', code: 500 }]
   }
 })
