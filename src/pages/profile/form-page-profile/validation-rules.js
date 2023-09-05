@@ -1,5 +1,6 @@
-import { required, helpers, minLength, email } from '@vuelidate/validators'
+import { required, helpers, minLength, maxLength, email } from '@vuelidate/validators'
 const requiredMsg = 'This fields is required'
+// const specialСhar = helpers.regex(/[@#$%^&+=]/)
 
 export default () => {
   return {
@@ -7,8 +8,31 @@ export default () => {
       required: {
         validator: required,
         message: requiredMsg
+      },
+      maxLength: {
+        validator: maxLength(50),
+        message: 'No more than 50 characters'
+      },
+      minLength: {
+        validator: minLength(3),
+        message: 'At least 3 characters long'
+      },
+
+      containsSpecial: {
+
+        validator: (value) => {
+          return !helpers.req(value) || !(/[@#$%^&+=]/.test(value))
+        },
+        message: 'Must not include special character'
+      },
+      containsNumber: {
+
+        validator: (value) => {
+          return !helpers.req(value) || !(/[0-9]/.test(value))
+        },
+        message: ' Must not include numbers'
       }
-      //symbol, num, minLen3, maxL50
+      //  minLen3, maxL50, must not include special characters, must not include numbers
     },
     email: {
       required: {
@@ -48,14 +72,14 @@ export default () => {
         validator: (value) => {
           return !helpers.req(value) || /[0-9]/.test(value)
         },
-        message: 'Include at least one uppercase and lowercase letter'
+        message: 'Include at least one digit'
       },
       containsSpecial: {
 
         validator: (value) => {
           return !helpers.req(value) || /[@#$%^&+=]/.test(value)
         },
-        message: 'Include at least one uppercase and lowercase letter'
+        message: 'Include at least one special character'
       }
     }
   }
