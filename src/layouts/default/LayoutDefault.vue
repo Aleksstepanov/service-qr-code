@@ -2,16 +2,18 @@
   <q-layout view="hHh lpR fFf" class="layout layout--default">
     <q-header elevated class="bg-primary text-white">
       <q-toolbar>
-        <q-btn dense
-               flat
-               round
-               icon="menu"
-               @click="toggleLeftDrawer" />
+        <UiBtn
+          :dense="true"
+          :flat="flat"
+          round
+          icon="menu"
+          @click="toggleLeftDrawer"
+        />
 
         <q-toolbar-title>
           <p class="q-mb-none">Сервис обработки платежных квитанций</p>
         </q-toolbar-title>
-        <q-btn icon="more_vert" flat>
+        <UiBtn icon="more_vert" :flat="flat">
           <q-menu>
             <div class="row no-wrap q-pa-md">
               <div class="column">
@@ -31,18 +33,19 @@
                   {{ firstName }} {{ lastName }}
                 </div>
 
-                <q-btn
-                  v-close-popup
-                  label="Logout"
+                <UiBtn
+                  class="button"
+                  :v-close-popup="true"
+                  :label="titleLogout"
+                  background
                   color="primary"
-                  push
-                  size="sm"
-                  @click="showConfirm = true"
-                />
+                  :push = "true"
+                  :size="sm"
+                  @click="showConfirm = true" />
               </div>
             </div>
           </q-menu>
-        </q-btn>
+        </UiBtn>
       </q-toolbar>
     </q-header>
 
@@ -56,7 +59,7 @@
           :key="item?.key"
           v-ripple
           clickable
-          @click="clickNavItem(item?.type)"
+          @click="$router.push(item?.to)"
         >
           <q-item-section style="max-width: 10%">
             <q-icon :name="item?.icon" style="color: #938f99" size="20px" />
@@ -70,7 +73,7 @@
 
     <q-page-container
       style="width: 100%"
-      class="flex justify-center align-center"
+      class="flex justify-center align-center bg-linear-gradient"
     >
       <slot></slot>
     </q-page-container>
@@ -88,7 +91,7 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { navListSideBar } from 'src/services/nav/nav-items'
 import { useAuthStore } from 'src/stores/auth.store'
-
+import UiBtn from 'src/components/ui-btn'
 import ConformitionDialog from 'src/components/conformition-dialog'
 
 // eslint-disable-next-line no-unused-vars
@@ -109,7 +112,12 @@ const toggleLeftDrawer = () => {
 const onConfirm = () => {
   authStore.logout()
 }
-
+defineProps({
+  titleLogout: {
+    type: String,
+    default: 'Logout'
+  }
+})
 </script>
 <style scoped>
 .layout--default {
@@ -118,7 +126,7 @@ const onConfirm = () => {
   height: 100vh;
   /* min-height: var(--app-min-height); */
 }
-.q-page-container {
+.bg-linear-gradient  {
   background: -webkit-linear-gradient(
     to right,
     #00b4ff,
@@ -126,5 +134,15 @@ const onConfirm = () => {
     #ffffff
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #00b4ff, #c4efff, #ffffff);
+}
+.primary{
+  background-color: #00b4ff;
+  color: var(--q-primary);
+}
+.btn-logout{
+  color: #ffffff;
+  font-size: 12px;
+  border-radius: 5px;
+  padding: 0 5px;
 }
 </style>
