@@ -2,7 +2,7 @@
   <q-form class="full-width row flex justify-center" @submit="() => {}">
     <div :class="classList">
       <PageHeader :title="isNew ? 'Create new person' : 'Edit person'" />
-      <div class="flex row">
+      <div class="flex row ml-12">
         <div class="col-8">
           <div class="col-1 q-pb-md">
             <q-input
@@ -47,7 +47,7 @@ const $emit = defineEmits(['submit', 'delete', 'cancel'])
 const props = defineProps({
   col: {
     type: Number,
-    default: 8
+    default: 9
   },
   ...useFormProps(),
   isDisabled: {

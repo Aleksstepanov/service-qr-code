@@ -99,7 +99,7 @@ const props = defineProps({
   },
   col: {
     type: Number,
-    default: 4
+    default: 3
   }
 })
 // emits
