@@ -23,11 +23,11 @@
           },
         },
       ]"
-      @click:refresh="getAdmins"
+      @click:refresh="fetchAdmins"
       @click:add="$router.push({name: 'page-admin-new'})"
     />
     <GridAdmins
-      :data="personsData"
+      :data="state.admins"
       :drawer="drawer"
       @delete="onDelete"
       @update:drawer="drawer = !drawer"
@@ -74,7 +74,7 @@ const title = computed(() => `Администраторы - ${totalAdmins.value
 const totalAdmins = computed(() => state.admins?.length || 0)
 
 // methods
-const getAdmins = async () => {
+const fetchAdmins = async () => {
   const { execute, data } = useAxios(
     '/api/admin/users/',
     {
@@ -91,13 +91,16 @@ const getAdmins = async () => {
         skip: 0,
         orderBy: [
           {
-            field: 'fullName',
+            field: 'fillName',
             order: 'ASC'
           }
         ]
       }
     })
-    state.admins = data.value
+    state.admins = data.value?.map((d, idx) => ({
+      ...d,
+      num: idx + 1
+    }))
     setAdmins(data.value)
   } catch (error) {
     emitter.emit('notify', {
@@ -112,6 +115,6 @@ const getAdmins = async () => {
 
 // life hooks
 onMounted(async () => {
-  await getAdmins()
+  await fetchAdmins()
 })
 </script>
