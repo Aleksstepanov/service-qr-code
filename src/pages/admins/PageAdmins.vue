@@ -87,11 +87,11 @@ const getAdmins = async () => {
     isLoading.value = true
     await execute({
       data: {
-        limit: 0,
+        limit: 200,
         skip: 0,
         orderBy: [
           {
-            field: 'string',
+            field: 'fullName',
             order: 'ASC'
           }
         ]
