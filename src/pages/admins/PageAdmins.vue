@@ -24,7 +24,7 @@
         },
       ]"
       @click:refresh="fetchAdmins"
-      @click:add="$router.push({name: 'page-admin-new'})"
+      @click:add="$router.push({ name: 'page-admin-new' })"
     />
     <GridAdmins
       :data="state.admins"
@@ -75,7 +75,7 @@ const totalAdmins = computed(() => state.admins?.length || 0)
 
 // methods
 const fetchAdmins = async () => {
-  const { execute, data } = useAxios(
+  const { execute, data: admins } = useAxios(
     '/api/admin/users/',
     {
       method: 'POST'
@@ -97,11 +97,16 @@ const fetchAdmins = async () => {
         ]
       }
     })
-    state.admins = data.value?.map((d, idx) => ({
+    state.admins = admins.value?.map((d, idx) => ({
       ...d,
       num: idx + 1
     }))
-    setAdmins(data.value)
+    setAdmins({
+      admins: admins.value?.map((d, idx) => ({
+        ...d,
+        num: idx + 1
+      }))
+    })
   } catch (error) {
     emitter.emit('notify', {
       type: 'negative',
