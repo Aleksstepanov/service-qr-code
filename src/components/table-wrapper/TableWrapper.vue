@@ -10,7 +10,6 @@
       :hide-pagination="hidePagination"
       :pagination="pagination"
       @update:pagination="updatePagination({ pagination: $event })"
-      @row-click="onRowClick"
       @request="updatePagination"
     >
       <template v-slot:body-cell-actions="props">
@@ -67,7 +66,7 @@ defineProps({
   },
   to: {
     type: String,
-    default: () => 'page-persons-edit'
+    default: () => 'page-admin'
   },
   pagination: {
     type: Object,
@@ -83,9 +82,6 @@ defineProps({
 const $emit = defineEmits(['delete', 'row-click', 'update:pagination'])
 
 // methods
-const onRowClick = (e, row, index) => {
-  $emit('row-click', row)
-}
 const updatePagination = ({ pagination }) => {
   $emit('update:pagination', pagination)
 }

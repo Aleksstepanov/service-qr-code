@@ -27,21 +27,20 @@
       @click:add="$router.push({ name: 'page-admin-new' })"
     />
     <GridAdmins
-      :data="state.admins"
+      :data="adminsStore.getAdmins"
       :drawer="drawer"
-      @delete="onDelete"
+      @delete="state.showModal = true"
       @update:drawer="drawer = !drawer"
       @update:fields="updateFields($event)"
     />
   </div>
 
-  <!-- <ShowDialog
-    :show-dialog="showModal"
-    titleMsg="Delete Person"
-    message="Do you really want to delete this person?"
-    @update:model-value="showModal = false"
-    @confirm="deletePersonHandler"
-  /> -->
+  <ConformitionDialog
+    v-model:show="state.showModal"
+    title="Вы действительно хотите удалить этого пользователя?"
+    title-cancel="Cancel"
+    @confirm="onDelete"
+  />
 </template>
 <script setup>
 import { computed, ref, reactive, onMounted } from 'vue'
@@ -54,18 +53,15 @@ import { useAdminsStore } from 'src/stores/admins.store'
 import PagePreLoader from 'src/components/page-pre-loader'
 import GridAdmins from './grid'
 import PageHeader from 'src/components/page-header/PageHeader.vue'
-// import ShowDialog from 'src/components/dialog/ShowDialog.vue'
+import ConformitionDialog from 'src/components/conformition-dialog/ConformitionDialog.vue'
 
-const { setAdmins } = useAdminsStore()
+const adminsStore = useAdminsStore()
 const $router = useRouter()
+
 // state
-// const showModal = ref(false)
-// const id = ref(null)
 const drawer = ref(false)
-const isLoading = ref(false)
-// eslint-disable-next-line no-unused-vars
 const state = reactive({
-  admins: null
+  showModal: false
 })
 // query
 
@@ -74,34 +70,47 @@ const title = computed(() => `Администраторы - ${totalAdmins.value
 const totalAdmins = computed(() => state.admins?.length || 0)
 
 // methods
-const fetchAdmins = async () => {
-  const { execute, data: admins } = useAxios(
-    '/api/admin/users/',
-    {
-      method: 'POST'
-    },
-    axios,
-    { immediate: false }
-  )
+const onDelete = async (id) => {
   try {
-    isLoading.value = true
+    await adminsStore.deleteAdmin({ id })
+    await fetchAdmins()
+  } catch (error) {
+    console.log(error)
+    emitter.emit('notify', {
+      type: 'negative',
+      message: error?.message
+    })
+  } finally {
+    state.showModal = false
+  }
+}
+const {
+  execute,
+  data: admins,
+  isLoading
+} = useAxios(
+  '/api/admin/users/',
+  {
+    method: 'POST'
+  },
+  axios,
+  { immediate: false }
+)
+const fetchAdmins = async () => {
+  try {
     await execute({
       data: {
         limit: 200,
         skip: 0,
         orderBy: [
           {
-            field: 'fillName',
+            field: 'fullName',
             order: 'ASC'
           }
         ]
       }
     })
-    state.admins = admins.value?.map((d, idx) => ({
-      ...d,
-      num: idx + 1
-    }))
-    setAdmins({
+    adminsStore.setAdmins({
       admins: admins.value?.map((d, idx) => ({
         ...d,
         num: idx + 1
@@ -112,11 +121,8 @@ const fetchAdmins = async () => {
       type: 'negative',
       message: error?.message
     })
-  } finally {
-    isLoading.value = false
   }
 }
-// mutations
 
 // life hooks
 onMounted(async () => {

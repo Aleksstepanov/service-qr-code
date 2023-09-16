@@ -16,7 +16,6 @@
 </template>
 <script setup>
 import headersConfig from './headersConfig'
-
 import TableWrapper from 'src/components/table-wrapper/TableWrapper.vue'
 
 // props
