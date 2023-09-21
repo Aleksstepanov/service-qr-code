@@ -11,7 +11,7 @@ export const useAuthStore = defineStore({
       return !!state.accessToken
     },
     getUser (state) {
-      return state.user
+      return JSON.parse(localStorage.getItem('userInfo'))
     },
     getLastName (state) {
       return state.user?.last_name || ''

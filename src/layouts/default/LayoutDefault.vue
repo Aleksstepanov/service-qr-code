@@ -16,10 +16,8 @@
         <UiBtn icon="more_vert" flat>
           <q-menu>
             <div class="row no-wrap q-pa-md">
-
               <div class="column items-center">
-
-                <q-avatar
+                <!-- <q-avatar
                   size="72px"
                   class="cursor-pointer"
                   @click="$router.push({ name: 'page-profile' })"
@@ -29,19 +27,25 @@
 
                   <img v-else src="/icons/icons8-no-image-96.png">
 
-                </q-avatar>
+                </q-avatar> -->
+                <UiAvatar
+                  :avatar="avatar"
+                  @click:avatar="$router.push({ name: 'page-profile' })"
+                />
 
                 <div class="text-subtitle1 q-mt-md q-mb-xs">
                   {{ firstName }} {{ lastName }}
                 </div>
 
-                <UiBtn v-bind="$attrs"
-                       :v-close-popup="true"
-                       :label="titleLogout"
-                       class="primary-white"
-                       :push="true"
-                       :size="xs"
-                       @click="showConfirm = true" />
+                <UiBtn
+                  v-bind="$attrs"
+                  :v-close-popup="true"
+                  :label="titleLogout"
+                  class="primary-white"
+                  :push="true"
+                  :size="xs"
+                  @click="showConfirm = true"
+                />
               </div>
             </div>
           </q-menu>
@@ -91,8 +95,9 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { navListSideBar } from 'src/services/nav/nav-items'
 import { useAuthStore } from 'src/stores/auth.store'
-import UiBtn from 'src/components/ui-btn/UiBtn.vue'
 
+import UiBtn from 'src/components/ui-btn/UiBtn.vue'
+import UiAvatar from 'src/components/ui-avatar/'
 import ConformitionDialog from 'src/components/conformition-dialog'
 
 // eslint-disable-next-line no-unused-vars
@@ -121,7 +126,6 @@ defineProps({
     default: 'Logout'
   }
 })
-
 </script>
 <style scoped>
 .layout--default {
@@ -140,8 +144,7 @@ defineProps({
   background: linear-gradient(to right, #00b4ff, #c4efff, #ffffff);
 }
 
-.btn-logout{
-
+.btn-logout {
   font-size: 14px;
   border-radius: 5px;
   padding: 0 5px;
