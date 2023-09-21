@@ -4,10 +4,10 @@
          :to="to"
          :disabled="disabled"
          :flat="flat"
-         :icon="icon"
-         :prefixIcon="prefixIcon"
          :round="round"
+         :prefixIcon="prefixIcon"
          :color="color"
+         :icon="icon"
          :type="type"
          :size="size"
          @click="type === 'submit' ? $emit('submit') : $emit('click')"
@@ -27,13 +27,13 @@
 import UiIcon from '../test-btn/ui-icon'
 // props
 defineProps({
-
   vClosePopup: {
     type: Boolean,
     default: false
   },
   to: {
     type: [String, Object],
+    // @review required удалить
     requred: false,
     default: null
   },
@@ -47,13 +47,10 @@ defineProps({
   },
   size: {
     type: String,
+    // @review лучше по дефолту что то передать
     default: ''
   },
   label: {
-    type: String,
-    default: ''
-  },
-  mask: {
     type: String,
     default: ''
   },
@@ -68,7 +65,6 @@ defineProps({
   icon: {
     type: String,
     requred: false
-
   },
   prefixIcon: {
     type: String,
@@ -91,10 +87,7 @@ defineProps({
     default: false
   },
   round: {
-    type: Boolean,
-    default: false
-  },
-  push: {
+    // @review не думаю, что нам этот проп вообще нужен будет
     type: Boolean,
     default: false
   }
@@ -102,6 +95,12 @@ defineProps({
 })
 
 // emits
+/*
+@review
+теперь про обработку событий.
+Если передан submit, то передаем submit
+Если type === button, то передаем click
+Если передан проп to, то обработчик ничего делать не должен
+*/
 const $emit = defineEmits(['click'])
-
 </script>
