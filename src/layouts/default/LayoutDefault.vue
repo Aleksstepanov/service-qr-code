@@ -5,7 +5,7 @@
         <UiBtn
           :dense="true"
           :flat="flat"
-          round
+          :round="true"
           icon="menu"
           @click="toggleLeftDrawer"
         />
@@ -13,35 +13,39 @@
         <q-toolbar-title>
           <p class="q-mb-none">Сервис обработки платежных квитанций</p>
         </q-toolbar-title>
-        <UiBtn icon="more_vert" :flat="flat">
+        <UiBtn icon="more_vert" flat>
           <q-menu>
             <div class="row no-wrap q-pa-md">
-              <div class="column">
-                <div class="text-h6 q-mb-md">Settings</div>
-              </div>
-
               <div class="column items-center">
-                <q-avatar
+                <!-- <q-avatar
                   size="72px"
                   class="cursor-pointer"
                   @click="$router.push({ name: 'page-profile' })"
                 >
-                  <img src="/admin_avatar.jpg" >
-                </q-avatar>
+
+                  <img v-if="avatar" :src="avatar">
+
+                  <img v-else src="/icons/icons8-no-image-96.png">
+
+                </q-avatar> -->
+                <UiAvatar
+                  :avatar="avatar"
+                  @click:avatar="$router.push({ name: 'page-profile' })"
+                />
 
                 <div class="text-subtitle1 q-mt-md q-mb-xs">
                   {{ firstName }} {{ lastName }}
                 </div>
 
                 <UiBtn
-                  class="button"
+                  v-bind="$attrs"
                   :v-close-popup="true"
                   :label="titleLogout"
-                  background
-                  color="primary"
-                  :push = "true"
-                  :size="sm"
-                  @click="showConfirm = true" />
+                  class="primary-white"
+                  :push="true"
+                  :size="xs"
+                  @click="showConfirm = true"
+                />
               </div>
             </div>
           </q-menu>
@@ -59,7 +63,7 @@
           :key="item?.key"
           v-ripple
           clickable
-          @click="clickNavItem(item?.type)"
+          @click="$router.push(item?.to)"
         >
           <q-item-section style="max-width: 10%">
             <q-icon :name="item?.icon" style="color: #938f99" size="20px" />
@@ -73,7 +77,7 @@
 
     <q-page-container
       style="width: 100%"
-      class="flex justify-center align-center bg-linear-gradient"
+      class="flex justify-center align-center"
     >
       <slot></slot>
     </q-page-container>
@@ -91,7 +95,9 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { navListSideBar } from 'src/services/nav/nav-items'
 import { useAuthStore } from 'src/stores/auth.store'
-import UiBtn from 'src/components/ui-btn'
+
+import UiBtn from 'src/components/ui-btn/UiBtn.vue'
+import UiAvatar from 'src/components/ui-avatar/'
 import ConformitionDialog from 'src/components/conformition-dialog'
 
 // eslint-disable-next-line no-unused-vars
@@ -102,8 +108,9 @@ const $router = useRouter()
 const leftDrawerOpen = ref(false)
 const showConfirm = ref(false)
 
-const lastName = computed(() => authStore?.getUser?.last_name || 'Error')
+const lastName = computed(() => authStore?.getUser?.last_name || '')
 const firstName = computed(() => authStore?.getUser?.first_name || '')
+const avatar = computed(() => authStore?.getUser?.avatar)
 
 // methods
 const toggleLeftDrawer = () => {
@@ -112,6 +119,7 @@ const toggleLeftDrawer = () => {
 const onConfirm = () => {
   authStore.logout()
 }
+
 defineProps({
   titleLogout: {
     type: String,
@@ -126,7 +134,7 @@ defineProps({
   height: 100vh;
   /* min-height: var(--app-min-height); */
 }
-.bg-linear-gradient  {
+.q-page-container {
   background: -webkit-linear-gradient(
     to right,
     #00b4ff,
@@ -135,13 +143,9 @@ defineProps({
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #00b4ff, #c4efff, #ffffff);
 }
-.primary{
-  background-color: #00b4ff;
-  color: var(--q-primary);
-}
-.btn-logout{
-  color: #ffffff;
-  font-size: 12px;
+
+.btn-logout {
+  font-size: 14px;
   border-radius: 5px;
   padding: 0 5px;
 }

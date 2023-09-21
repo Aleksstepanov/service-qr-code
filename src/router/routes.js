@@ -24,6 +24,25 @@ const routes = [
     name: 'page-profile',
     component: () => import('pages/profile'),
     meta: metaAccount
+  },
+  {
+    path: '/admins',
+    name: 'page-admins',
+    component: () => import('pages/admins'),
+    meta: metaAccount
+  },
+  {
+    path: '/admin/:id',
+    name: 'page-admin',
+    props: (route) => ({ id: route.params.id }),
+    component: () => import('pages/admin'),
+    meta: metaAccount
+  },
+  {
+    path: '/admin/new',
+    name: 'page-admin-new',
+    component: () => import('pages/admin'),
+    meta: metaAccount
   }
 
 ]
