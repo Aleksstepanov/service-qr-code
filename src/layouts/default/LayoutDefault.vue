@@ -16,17 +16,19 @@
         <UiBtn icon="more_vert" flat>
           <q-menu>
             <div class="row no-wrap q-pa-md">
-              <div class="column">
-                <div class="text-h6 q-mb-md">Settings</div>
-              </div>
 
               <div class="column items-center">
+
                 <q-avatar
                   size="72px"
                   class="cursor-pointer"
                   @click="$router.push({ name: 'page-profile' })"
                 >
-                  <img src="/admin_avatar.jpg" >
+
+                  <img v-if="avatar" :src="avatar">
+
+                  <img v-else src="/icons/icons8-no-image-96.png">
+
                 </q-avatar>
 
                 <div class="text-subtitle1 q-mt-md q-mb-xs">
@@ -37,8 +39,8 @@
                        :v-close-popup="true"
                        :label="titleLogout"
                        class="primary-white"
-                       :push = "true"
-                       :size="sm"
+                       :push="true"
+                       :size="xs"
                        @click="showConfirm = true" />
               </div>
             </div>
@@ -101,8 +103,9 @@ const $router = useRouter()
 const leftDrawerOpen = ref(false)
 const showConfirm = ref(false)
 
-const lastName = computed(() => authStore?.getUser?.last_name || 'Error')
+const lastName = computed(() => authStore?.getUser?.last_name || '')
 const firstName = computed(() => authStore?.getUser?.first_name || '')
+const avatar = computed(() => authStore?.getUser?.avatar)
 
 // methods
 const toggleLeftDrawer = () => {

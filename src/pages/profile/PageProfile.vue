@@ -31,7 +31,7 @@
       <div class="test-btn__wrapper">
 
         <h5>sample UiBtn </h5>
-        <UiBtn :suffixIcon="mi-menu"
+        <UiBtn :suffixIcon="menu"
                :to="'/dashboard'"
                class="button primary-white"
                label="test-btn"
@@ -44,19 +44,20 @@
           :to="'/dashboard'"
           class="button my-btn "
           label="UiBtnVue"
-          :icon= "matMenu"
+          :prefixIcon="mail"
           @click="btnTestClick"/>
 
         <hr size="2px" width="200px">
         <h5>MyBtn</h5>
 
         <MyBtn
-
+          :to="'/dashboard'"
+          :suffixIcon="mail"
           class="button primary-white"
           label="MyBtn"
           @click="btnTestClick"
 
-        ><ZebraSvg/></MyBtn>
+        />
 
         <hr size="2px" width="200px">
         <h5>q-icon svg</h5>
@@ -92,7 +93,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useAuthStore } from 'src/stores/auth.store'
 import { axios } from 'src/utils'
 import { emitter } from 'src/plugins'
-import { matMenu } from '@quasar/extras/material-icons'
+// import { matMenu } from '@quasar/extras/material-icons'
 
 // import zebraIcon32 from 'src/assets/32.svg'
 import PagePreloader from 'src/components/page-pre-loader'

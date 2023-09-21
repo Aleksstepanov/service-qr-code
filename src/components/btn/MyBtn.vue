@@ -16,18 +16,22 @@
       v-if="prefixIcon && !loading"
       class="btn__prefix-icon"
       :icon="prefixIcon" />
+    <slot></slot>
+    <UiIcon v-if="prefixIcon && !loading" :icon="prefixIcon"/>
     <span v-if="label">
       {{ label }}</span>
-    <slot></slot>
-    <q-icon  v-if="suffixIcon"
-             role="img"
-             class=" q-icon suffix-icon"
-             :icon="suffixIcon"/>
+    <UiIcon v-if="iconOnly && !loading" :icon="iconOnly"/>
+    <span
+      v-if="badge"
+      class="btn__badge">{{ badge }}</span>
+    <UiIcon v-if="suffixIcon " :icon="suffixIcon"/>
   </component>
 </template>
 
 <script >
+import UiIcon from '../test-btn/ui-icon'
 import { defineEmits } from 'vue'
+
 export default {
   name: 'MyBtn',
   props: {
@@ -81,13 +85,13 @@ export default {
       default: false
     }
   },
-
   computed: {
     /* eslint-disable */
-    component() {
-      return !this.to ? 'button' : 'router-link'
-    }
-  }
+        component() {
+            return !this.to ? 'button' : 'router-link';
+        }
+    },
+    components: { UiIcon }
 }
 const $emit = defineEmits(['click'])
 

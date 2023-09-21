@@ -2,23 +2,29 @@
   <q-btn v-bind="$attrs"
          :v-close-popup="vClosePopup"
          :to="to"
-         :disabled ="disabled"
+         :disabled="disabled"
          :flat="flat"
-         :round="round"
-         :mask="mask"
-         :color="color"
          :icon="icon"
+         :prefixIcon="prefixIcon"
+         :round="round"
+         :color="color"
          :type="type"
          :size="size"
          @click="type === 'submit' ? $emit('submit') : $emit('click')"
   ><slot></slot>
+    <UiIcon v-if="prefixIcon && !loading" :icon="prefixIcon"/>
     <span v-if="label">
       {{ label }}</span>
+    <UiIcon v-if="iconOnly && !loading" :icon="iconOnly"/>
+    <span
+      v-if="badge"
+      class="btn__badge">{{ badge }}</span>
+    <UiIcon v-if="suffixIcon " :icon="suffixIcon"/>
   </q-btn>
 </template>
 <script setup>
-// import { computed } from 'vue'
 
+import UiIcon from '../test-btn/ui-icon'
 // props
 defineProps({
 
@@ -61,8 +67,24 @@ defineProps({
   },
   icon: {
     type: String,
-    requred: false,
-    default: ''
+    requred: false
+
+  },
+  prefixIcon: {
+    type: String,
+    required: false
+  },
+  suffixIcon: {
+    type: String,
+    required: false
+  },
+  iconOnly: {
+    type: String,
+    default: null
+  },
+  badge: {
+    type: String,
+    default: null
   },
   dense: {
     type: Boolean,
