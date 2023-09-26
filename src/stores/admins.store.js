@@ -23,6 +23,7 @@ export const useAdminsStore = defineStore({
       this.admins = JSON.stringify(admins)
     },
     async deleteAdmin ({ id }) {
+      console.log('id', id)
       await useAxios(
         `/api/admin/users/${id}`,
         {

@@ -17,13 +17,13 @@ class NavItem {
 export const navListSideBar = [
   new NavItem(
     { name: 'page-admins' },
-    'service-providers',
+    'admins',
     ['READ_SERVICE_PROVIDERS_PAGE'],
     false,
     'Администраторы'
   ),
   new NavItem(
-    { name: 'page-service-providers' },
+    { name: 'page-providers' },
     'service-providers',
     ['READ_SERVICE_PROVIDERS_PAGE'],
     false,

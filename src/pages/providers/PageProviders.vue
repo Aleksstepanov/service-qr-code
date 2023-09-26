@@ -23,13 +23,13 @@
           },
         },
       ]"
-      @click:refresh="fetchAdmins"
-      @click:add="$router.push({ name: 'page-admin-new' })"
+      @click:refresh="fetchProviders"
+      @click:add="$router.push({ name: 'page-provider-new' })"
     />
-    <GridAdmins
-      :data="adminsStore.getAdmins"
+    <GridPageProviders
+      :data="providersStore.getProviders"
       :drawer="drawer"
-      @delete="state.showModal = true"
+      @delete="onDelete"
       @update:drawer="drawer = !drawer"
       @update:fields="updateFields($event)"
     />
@@ -37,27 +37,32 @@
 
   <ConformitionDialog
     v-model:show="state.showModal"
-    title="Вы действительно хотите удалить этого пользователя?"
+    title="Вы действительно хотите удалить этого поставщика?"
     title-cancel="Cancel"
     @confirm="onDelete"
   />
 </template>
 <script setup>
+// state.showModal = true
+
 import { computed, ref, reactive, onMounted } from 'vue'
 import { emitter } from 'src/plugins'
 import { axios } from 'src/utils'
 import { useAxios } from '@vueuse/integrations/useAxios'
 import { useRouter } from 'vue-router'
-import { useAdminsStore } from 'src/stores/admins.store'
+import { useProvidersStore } from 'src/stores/providers.store'
 
 import PagePreLoader from 'src/components/page-pre-loader'
-import GridAdmins from './grid'
+import GridPageProviders from './grid'
 import PageHeader from 'src/components/page-header/PageHeader.vue'
 import ConformitionDialog from 'src/components/conformition-dialog/ConformitionDialog.vue'
 
-const adminsStore = useAdminsStore()
+const providersStore = useProvidersStore()
 const $router = useRouter()
-
+//
+const updateFields = (fields) => {
+  console.log('fields', fields)
+}
 // state
 const drawer = ref(false)
 const state = reactive({
@@ -66,14 +71,28 @@ const state = reactive({
 // query
 
 // computed
-const title = computed(() => `Администраторы - ${totalAdmins.value}`)
-const totalAdmins = computed(() => state.admins?.length || 0)
+const title = computed(() => `Провайдеры- ${totalProviders.value}`)
+const totalProviders = computed(() => state.providers?.length || 0)
 
 // methods
+const {
+  execute,
+  data: providers,
+  isLoading
+} = useAxios(
+  '/api/admin/providers/',
+  {
+    method: 'POST'
+  },
+  axios,
+  { immediate: false }
+)
+
 const onDelete = async (id) => {
+  console.log(id + ' id!!!!!')
   try {
-    await adminsStore.deleteAdmin({ id })
-    await fetchAdmins()
+    await providersStore.deleteProvider({ id })
+    await fetchProviders()
   } catch (error) {
     console.log(error)
     emitter.emit('notify', {
@@ -85,19 +104,7 @@ const onDelete = async (id) => {
   }
 }
 
-const {
-  execute,
-  data: admins,
-  isLoading
-} = useAxios(
-  '/api/admin/users/',
-  {
-    method: 'POST'
-  },
-  axios,
-  { immediate: false }
-)
-const fetchAdmins = async () => {
+const fetchProviders = async () => {
   try {
     await execute({
       data: {
@@ -105,14 +112,14 @@ const fetchAdmins = async () => {
         skip: 0,
         orderBy: [
           {
-            field: 'fullName',
+            field: 'company',
             order: 'ASC'
           }
         ]
       }
     })
-    adminsStore.setAdmins({
-      admins: admins.value?.map((d, idx) => ({
+    providersStore.setProviders({
+      providers: providers.value?.map((d, idx) => ({
         ...d,
         num: idx + 1
       }))
@@ -127,6 +134,6 @@ const fetchAdmins = async () => {
 
 // life hooks
 onMounted(async () => {
-  await fetchAdmins()
+  await fetchProviders()
 })
 </script>
