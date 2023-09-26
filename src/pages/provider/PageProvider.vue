@@ -29,6 +29,7 @@ import PagePreLoader from 'src/components/page-pre-loader/PagePreLoader.vue'
 import FormPageProvider from './form'
 import ConformitionDialog from 'src/components/conformition-dialog/ConformitionDialog.vue'
 
+//  @delete="state.showModal = true"
 const $route = useRoute()
 const $router = useRouter()
 const providerStore = useProvidersStore()

@@ -24,7 +24,7 @@ export const useProvidersStore = defineStore({
     },
     async deleteProvider ({ id }) {
       await useAxios(
-        `/admin/providers/${id}`,
+        `/api/admin/providers/${id}`,
         {
           method: 'DELETE'
 

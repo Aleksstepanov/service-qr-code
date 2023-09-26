@@ -4,10 +4,12 @@
       v-if="data?.length > 0"
       :pagination="pagination"
       :class-list="classList"
+      to="page-provider"
       :title="title"
       :columns="headersConfig"
       :rows="data"
       @delete="$emit('delete', $event)"
+      @update:fields="$emit('update:fields', $event)"
       @update:pagination="$emit('update:pagination', $event)"
     />
     <p v-else>No data...</p>

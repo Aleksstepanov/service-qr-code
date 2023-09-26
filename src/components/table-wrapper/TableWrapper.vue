@@ -3,6 +3,7 @@
     <q-table
       :title="title"
       :rows="rows"
+      :to="to"
       :columns="columns"
       row-key="name"
       flat
