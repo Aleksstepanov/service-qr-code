@@ -29,7 +29,7 @@
     <GridAdmins
       :data="adminsStore.getAdmins"
       :drawer="drawer"
-      @delete="state.showModal = true"
+      @delete="deleteBtnClickHandler"
       @update:drawer="drawer = !drawer"
       @update:fields="updateFields($event)"
     />
@@ -60,6 +60,7 @@ const $router = useRouter()
 
 // state
 const drawer = ref(false)
+const selectedId = ref(null)
 const state = reactive({
   showModal: false
 })
@@ -70,9 +71,15 @@ const title = computed(() => `Администраторы - ${totalAdmins.value
 const totalAdmins = computed(() => state.admins?.length || 0)
 
 // methods
-const onDelete = async (id) => {
+const deleteBtnClickHandler = (id) => {
+  state.showModal = true
+  console.log(id)
+  selectedId.value = id
+}
+const onDelete = async () => {
+  if (!selectedId.value) return
   try {
-    await adminsStore.deleteAdmin({ id })
+    await adminsStore.deleteAdmin({ id: selectedId.value })
     await fetchAdmins()
   } catch (error) {
     console.log(error)

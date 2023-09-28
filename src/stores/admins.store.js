@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
+// eslint-disable-next-line no-unused-vars
 import { axios } from 'src/utils'
+// eslint-disable-next-line no-unused-vars
 import { useAxios } from '@vueuse/integrations/useAxios'
 import { useStorage } from '@vueuse/core'
 export const useAdminsStore = defineStore({
@@ -30,6 +32,11 @@ export const useAdminsStore = defineStore({
         },
         axios
       )
+      // console.log(id)
+      // await fetch(`http://localhost:8500/admin/users/${id}`, {
+      //   method: 'DELETE',
+      //   credentials: 'same-origin'
+      // })
     }
   }
 })
