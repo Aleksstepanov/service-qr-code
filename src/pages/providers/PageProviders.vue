@@ -29,7 +29,7 @@
     <GridPageProviders
       :data="providersStore.getProviders"
       :drawer="drawer"
-      @delete="onDelete"
+      @delete="confirmWithId, $event"
       @update:drawer="drawer = !drawer"
       @update:fields="updateFields($event)"
     />
@@ -39,7 +39,7 @@
     v-model:show="state.showModal"
     title="Вы действительно хотите удалить этого поставщика?"
     title-cancel="Cancel"
-    @confirm="onDelete"
+    @confirm=" confirmDelete"
   />
 </template>
 <script setup>
@@ -57,6 +57,14 @@ import GridPageProviders from './grid'
 import PageHeader from 'src/components/page-header/PageHeader.vue'
 import ConformitionDialog from 'src/components/conformition-dialog/ConformitionDialog.vue'
 
+defineProps({
+  props: {
+    id: {
+      type: Number
+    }
+  }
+})
+defineEmits(['update', 'delete'])
 const providersStore = useProvidersStore()
 const $router = useRouter()
 //
@@ -66,8 +74,10 @@ const updateFields = (fields) => {
 // state
 const drawer = ref(false)
 const state = reactive({
-  showModal: false
+  showModal: false,
+  confirmWithDelete: false
 })
+
 // query
 
 // computed
@@ -75,6 +85,16 @@ const title = computed(() => `Провайдеры- ${totalProviders.value}`)
 const totalProviders = computed(() => state.providers?.length || 0)
 
 // methods
+function confirmWithId (id) {
+  console.log('id', id)
+  state.showModal = true
+  return id
+}
+function confirmDelete (id) {
+  console.log('Нет id ', id)
+  onDelete(id)
+}
+
 const {
   execute,
   data: providers,

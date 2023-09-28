@@ -15,7 +15,7 @@ export const useProvidersStore = defineStore({
     },
     getProvider: (state) => (providerId) =>
       JSON.parse(state.providers)?.find((provider) => {
-        return provider?.id === providerId
+        return providerId === provider?.id // поменяла местами
       }) || null
   },
   actions: {

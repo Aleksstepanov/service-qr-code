@@ -7,7 +7,7 @@
     :data="state.provider"
     @cancel="$router.push({ name: 'page-providers' })"
     @submit="onSubmit"
-    @delete="state.showModal = true"
+    @delete="state.showModal = true, $event"
   />
 
   <ConformitionDialog
@@ -45,7 +45,7 @@ const isLoading = ref(false)
 
 const idProvider = computed(() => $route.params.id)
 const isNew = computed(() => !idProvider.value)
-
+console.log('idProvider', idProvider.value)//
 // methods
 const { execute } = useAxios(
   '/api/admin/providers/new',
@@ -59,6 +59,7 @@ const fetchProvider = async () => {
   if (isNew.value) return
   isLoading.value = false
   state.provider = providerStore.getProvider(Number(idProvider.value))
+  console.log('idProvider.value', idProvider.value)
 }
 const onSubmit = async (payload) => {
   if (isNew.value) {

@@ -103,7 +103,7 @@ const props = defineProps({
   }
 })
 // emits
-const $emit = defineEmits('submit-panel')
+const $emit = defineEmits('submit-panel', 'delete')
 
 // computed
 const classList = computed(() => `col-${props.col}`)
