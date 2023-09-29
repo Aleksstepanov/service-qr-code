@@ -29,7 +29,7 @@
     <GridPageProviders
       :data="providersStore.getProviders"
       :drawer="drawer"
-      @delete="confirmWithId, $event"
+      @delete="confirmWithId"
       @update:drawer="drawer = !drawer"
       @update:fields="updateFields($event)"
     />
@@ -75,7 +75,7 @@ const updateFields = (fields) => {
 const drawer = ref(false)
 const state = reactive({
   showModal: false,
-  confirmWithDelete: false
+  id: null
 })
 
 // query
@@ -88,11 +88,10 @@ const totalProviders = computed(() => state.providers?.length || 0)
 function confirmWithId (id) {
   console.log('id', id)
   state.showModal = true
-  return id
+  state.id = id
 }
 function confirmDelete (id) {
-  console.log('Нет id ', id)
-  onDelete(id)
+  onDelete(state.id)
 }
 
 const {

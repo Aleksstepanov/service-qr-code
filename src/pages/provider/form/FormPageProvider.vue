@@ -26,9 +26,11 @@
               v-model="fields.inn"
               dense
               filled
-              label="INN *"
+              label="INN"
               type="number"
               :disable="isDisabled"
+              :error-message="validationErrors.inn.message"
+              :error="validationErrors.inn.invalid"
 
             />
           </div>
@@ -43,8 +45,10 @@
               dense
               filled
               label="Checking account"
-              type="number"
+              mask="##### ##### ##### #####"
               :disable="isDisabled"
+              :error-message="validationErrors.rs.message"
+              :error="validationErrors.rs.invalid"
             />
           </div>
 
