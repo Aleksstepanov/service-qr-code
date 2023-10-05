@@ -6,7 +6,7 @@
       :class-list="classList"
       to="page-provider"
       :title="title"
-      :columns="headersConfig"
+      :columns="providerHeadersConfig"
       :rows="data"
       @delete="$emit('delete', $event)"
       @update:fields="$emit('update:fields', $event)"
@@ -17,8 +17,11 @@
   </div>
 </template>
 <script setup>
-import headersConfig from './headersConfig'
+// import headersConfig from './headersConfig'
 import TableWrapper from 'src/components/table-wrapper/TableWrapper.vue'
+import { useProviderHeadersConfig } from './headersConfig'
+
+const { providerHeadersConfig } = useProviderHeadersConfig()
 
 // props
 defineProps({

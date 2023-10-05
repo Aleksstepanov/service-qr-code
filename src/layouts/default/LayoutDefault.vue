@@ -13,6 +13,7 @@
         <q-toolbar-title>
           <p class="q-mb-none">Сервис обработки платежных квитанций</p>
         </q-toolbar-title>
+        <LanguageSwitcher/>
         <UiBtn icon="more_vert" flat>
           <q-menu>
             <div class="row no-wrap q-pa-md">
@@ -99,6 +100,7 @@ import { useAuthStore } from 'src/stores/auth.store'
 import UiBtn from 'src/components/ui-btn/UiBtn.vue'
 import UiAvatar from 'src/components/ui-avatar/'
 import ConformitionDialog from 'src/components/conformition-dialog'
+import LanguageSwitcher from 'src/components/language-switcher'
 
 // eslint-disable-next-line no-unused-vars
 const authStore = useAuthStore()
@@ -150,3 +152,4 @@ defineProps({
   padding: 0 5px;
 }
 </style>
+//  <LanguageSwitcher/>

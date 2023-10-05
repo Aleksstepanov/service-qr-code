@@ -36,7 +36,7 @@
   </div>
 
   <ConformitionDialog
-    v-model:show="state.showModal"
+    v-model:show="statePage.showModal"
     title="Вы действительно хотите удалить этого поставщика?"
     title-cancel="Cancel"
     @confirm=" confirmDelete"
@@ -52,10 +52,13 @@ import { useAxios } from '@vueuse/integrations/useAxios'
 import { useRouter } from 'vue-router'
 import { useProvidersStore } from 'src/stores/providers.store'
 
+import { useI18n } from 'vue-i18n'
 import PagePreLoader from 'src/components/page-pre-loader'
 import GridPageProviders from './grid'
 import PageHeader from 'src/components/page-header/PageHeader.vue'
 import ConformitionDialog from 'src/components/conformition-dialog/ConformitionDialog.vue'
+
+const { t: $t } = useI18n()
 
 defineProps({
   props: {
@@ -73,25 +76,26 @@ const updateFields = (fields) => {
 }
 // state
 const drawer = ref(false)
-const state = reactive({
+const statePage = reactive({
   showModal: false,
   id: null
 })
 
 // query
 
-// computed
-const title = computed(() => `Провайдеры- ${totalProviders.value}`)
-const totalProviders = computed(() => state.providers?.length || 0)
+//
+
+const totalProviders = computed(() => (providersStore.getProviders)?.length || 0)
+const title = computed(() => `${$t('service_providers')} ${totalProviders.value}`)
 
 // methods
 function confirmWithId (id) {
   console.log('id', id)
-  state.showModal = true
-  state.id = id
+  statePage.showModal = true
+  statePage.id = id
 }
 function confirmDelete (id) {
-  onDelete(state.id)
+  onDelete(statePage.id)
 }
 
 const {
@@ -119,7 +123,7 @@ const onDelete = async (id) => {
       message: error?.message
     })
   } finally {
-    state.showModal = false
+    statePage.showModal = false
   }
 }
 
