@@ -1,29 +1,39 @@
 <template>
   <q-btn v-bind="$attrs"
          :v-close-popup="vClosePopup"
-         :disabled ="disabled"
+         :to="to"
+         :disabled="disabled"
          :flat="flat"
-         :label="label"
-         :mask="mask"
-         :background="background"
+         :round="round"
+         :prefixIcon="prefixIcon"
          :color="color"
          :icon="icon"
          :type="type"
          :size="size"
          @click="type === 'submit' ? $emit('submit') : $emit('click')"
   ><slot></slot>
+    <UiIcon v-if="prefixIcon && !loading" :icon="prefixIcon"/>
+    <span v-if="label">
+      {{ label }}</span>
+    <UiIcon v-if="iconOnly && !loading" :icon="iconOnly"/>
+    <span
+      v-if="badge"
+      class="btn__badge">{{ badge }}</span>
+    <UiIcon v-if="suffixIcon " :icon="suffixIcon"/>
   </q-btn>
 </template>
 <script setup>
+
+import UiIcon from '../test-btn/ui-icon'
 // props
 defineProps({
   vClosePopup: {
     type: Boolean,
     default: false
   },
-  background: {
-    type: String,
-    default: 'var(--q-primary)'
+  to: {
+    type: [String, Object],
+    default: null
   },
   disabled: {
     type: Boolean,
@@ -35,13 +45,9 @@ defineProps({
   },
   size: {
     type: String,
-    default: ''
+    default: 'sm'
   },
   label: {
-    type: String,
-    default: ''
-  },
-  mask: {
     type: String,
     default: ''
   },
@@ -55,7 +61,23 @@ defineProps({
   },
   icon: {
     type: String,
-    default: ''
+    requred: false
+  },
+  prefixIcon: {
+    type: String,
+    required: false
+  },
+  suffixIcon: {
+    type: String,
+    required: false
+  },
+  iconOnly: {
+    type: String,
+    default: null
+  },
+  badge: {
+    type: String,
+    default: null
   },
   dense: {
     type: Boolean,
@@ -64,14 +86,17 @@ defineProps({
   round: {
     type: Boolean,
     default: false
-  },
-  push: {
-    type: Boolean,
-    default: false
   }
 
 })
 
 // emits
+/*
+@review
+теперь про обработку событий.
+Если передан submit, то передаем submit
+Если type === button, то передаем click
+Если передан проп to, то обработчик ничего делать не должен
+*/
 const $emit = defineEmits(['click'])
 </script>

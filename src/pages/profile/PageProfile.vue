@@ -2,7 +2,6 @@
   <PagePreloader v-if="isLoading"/>
 
   <FormPageProfile @update:user="onUpdUser($event)"/>
-
   <!-- <q-card v-else
           class="my-card"
           flat
@@ -39,8 +38,10 @@ import { onMounted, ref } from 'vue' // computed,
 import { useAuthStore } from 'src/stores/auth.store'
 import { axios } from 'src/utils'
 import { emitter } from 'src/plugins'
+
 import PagePreloader from 'src/components/page-pre-loader'
 import FormPageProfile from 'src/pages/profile/form-page-profile'
+
 const authStore = useAuthStore()
 
 // state
@@ -54,6 +55,7 @@ const isLoading = ref(false)
 // const userDescription = computed(() => authStore?.getUser?.text || '')
 
 // methods
+
 const fetchUser = async () => {
   isLoading.value = true
   try {
@@ -75,4 +77,51 @@ const onUpdUser = (fields) => {
 }
 // life hooks
 onMounted(async () => await fetchUser())
+
+//
+
 </script>
+
+<style scoped>
+.test-btn__wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid red;
+  padding: 10px;
+
+}
+
+.my-btn{
+  background: #02b4ff;
+  color: aliceblue;
+  padding: 5px auto;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.1rem;
+  line-height: 1.4rem;
+  cursor: pointer;
+}
+</style>
+
+<style scoped>
+.test-btn__wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid red;
+  padding: 10px;
+
+}
+
+.my-btn{
+  background: #02b4ff;
+  color: aliceblue;
+  padding: 5px auto;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.1rem;
+  line-height: 1.4rem;
+  cursor: pointer;
+}
+</style>
