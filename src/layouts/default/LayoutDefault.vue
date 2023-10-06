@@ -11,24 +11,14 @@
         />
 
         <q-toolbar-title>
-          <p class="q-mb-none">Сервис обработки платежных квитанций</p>
+          <p class="q-mb-none">{{$t('title')}}</p>
         </q-toolbar-title>
         <LanguageSwitcher/>
         <UiBtn icon="more_vert" flat>
           <q-menu>
             <div class="row no-wrap q-pa-md">
               <div class="column items-center">
-                <!-- <q-avatar
-                  size="72px"
-                  class="cursor-pointer"
-                  @click="$router.push({ name: 'page-profile' })"
-                >
 
-                  <img v-if="avatar" :src="avatar">
-
-                  <img v-else src="/icons/icons8-no-image-96.png">
-
-                </q-avatar> -->
                 <UiAvatar
                   :avatar="avatar"
                   @click:avatar="$router.push({ name: 'page-profile' })"
@@ -41,7 +31,7 @@
                 <UiBtn
                   v-bind="$attrs"
                   :v-close-popup="true"
-                  :label="titleLogout"
+                  :label="$t('logout')"
                   class="primary-white"
                   :push="true"
                   :size="xs"
@@ -85,9 +75,9 @@
   </q-layout>
   <ConformitionDialog
     v-model:show="showConfirm"
-    title="Вы действительно хотите выйти?"
-    title-cancel="Отмена"
-    title-confirm="Выйти"
+    :title="$t('delete_provider')"
+    :title-cancel="$t('cancel')"
+    :title-confirm="$t('logout')"
     @confirm="onConfirm"
   />
 </template>
@@ -122,12 +112,12 @@ const onConfirm = () => {
   authStore.logout()
 }
 
-defineProps({
-  titleLogout: {
-    type: String,
-    default: 'Logout'
-  }
-})
+// defineProps({
+//   titleLogout: {
+//     type: String,
+//     default: 'Logout'
+//   }
+// })
 </script>
 <style scoped>
 .layout--default {

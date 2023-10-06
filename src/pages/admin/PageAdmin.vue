@@ -12,8 +12,8 @@
 
   <ConformitionDialog
     v-model:show="state.showModal"
-    title="Вы действительно хотите удалить этого пользователя?"
-    title-cancel="Cancel"
+    :title="$t('delete_admin')"
+    :title-cancel="$t('cancel')"
     @confirm="onDelete"
   />
 </template>

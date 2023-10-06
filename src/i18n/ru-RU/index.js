@@ -6,6 +6,7 @@ export default {
   checking_account: 'Расчётный счёт',
   company_name: 'Компания',
   create_company: 'Создать новую компанию',
+  delete: 'Удалить',
   delete_admin: 'Вы действительно хотите удалить этого администратора?',
   delete_provider: 'Вы действительно хотите удалить этого провайдера?',
   edit_company: 'Редактировать компанию',
@@ -25,5 +26,6 @@ export default {
   signIn: 'Войти',
   signOut: 'Выйти',
   title: 'Сервис обработки платежных квитанций',
+  user_name: 'Имя пользователя',
   workedI18n: 'Здесь i18n сработал'
 }

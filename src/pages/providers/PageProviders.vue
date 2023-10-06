@@ -37,8 +37,8 @@
 
   <ConformitionDialog
     v-model:show="statePage.showModal"
-    title="Вы действительно хотите удалить этого поставщика?"
-    title-cancel="Cancel"
+    :title="$t('delete_provider')"
+    :title-cancel="$t('cancel')"
     @confirm=" confirmDelete"
   />
 </template>

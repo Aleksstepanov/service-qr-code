@@ -37,8 +37,8 @@
 
   <ConformitionDialog
     v-model:show="state.showModal"
-    title="Вы действительно хотите удалить этого пользователя?"
-    title-cancel="Cancel"
+    :title="$t('delete_admin')"
+    :title-cancel="$t('cancel')"
     @confirm="onDelete"
   />
 </template>
@@ -49,7 +49,7 @@ import { axios } from 'src/utils'
 import { useAxios } from '@vueuse/integrations/useAxios'
 import { useRouter } from 'vue-router'
 import { useAdminsStore } from 'src/stores/admins.store'
-
+import { useI18n } from 'vue-i18n'
 import PagePreLoader from 'src/components/page-pre-loader'
 import GridAdmins from './grid'
 import PageHeader from 'src/components/page-header/PageHeader.vue'
@@ -57,7 +57,7 @@ import ConformitionDialog from 'src/components/conformition-dialog/ConformitionD
 
 const adminsStore = useAdminsStore()
 const $router = useRouter()
-
+const { t: $t } = useI18n()
 // state
 const drawer = ref(false)
 const state = reactive({
@@ -66,8 +66,8 @@ const state = reactive({
 // query
 
 // computed
-const title = computed(() => `Администраторы - ${totalAdmins.value}`)
-const totalAdmins = computed(() => state.admins?.length || 0)
+const title = computed(() => `${$t('admins')} - ${totalAdmins.value}`)
+const totalAdmins = computed(() => (adminsStore.getAdmins)?.length || 0)
 
 // methods
 const onDelete = async (id) => {

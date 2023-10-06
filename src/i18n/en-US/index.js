@@ -9,6 +9,7 @@ export default {
   checking_account: 'Checking account',
   company_name: 'Company name',
   create_company: 'Create new company',
+  delete: 'Delete',
   delete_admin: 'Are you sure you want to remove this admin?',
   delete_provider: 'Are you sure you want to remove this provider?',
   edit_company: 'Edit company',
@@ -28,6 +29,7 @@ export default {
   signIn: 'Sign in',
   signOut: 'Sign out',
   title: 'Payment receipt processing service',
+  user_name: 'User name',
   workedI18n: 'Here is worked i18n'
 
 }

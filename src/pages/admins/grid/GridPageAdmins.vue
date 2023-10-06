@@ -5,7 +5,7 @@
       :pagination="pagination"
       :class-list="classList"
       :title="title"
-      :columns="headersConfig"
+      :columns="adminHeadersConfig"
       :rows="data"
       @delete="$emit('delete', $event)"
       @update:pagination="$emit('update:pagination', $event)"
@@ -15,9 +15,10 @@
   </div>
 </template>
 <script setup>
-import headersConfig from './headersConfig'
+import { useAdminHeadersConfig } from './headersConfig'
 import TableWrapper from 'src/components/table-wrapper/TableWrapper.vue'
 
+const { adminHeadersConfig } = useAdminHeadersConfig()
 // props
 defineProps({
   classList: {

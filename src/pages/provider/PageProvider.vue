@@ -13,7 +13,7 @@
   <ConformitionDialog
     v-model:show="state.showModal"
     :title="$t('delete_provider')"
-    title-cancel="Cancel"
+    :title-cancel="$t('cancel')"
     @confirm="onDelete"
   />
 </template>
