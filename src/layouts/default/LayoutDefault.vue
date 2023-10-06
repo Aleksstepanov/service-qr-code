@@ -13,7 +13,7 @@
         <q-toolbar-title>
           <p class="q-mb-none">Сервис обработки платежных квитанций</p>
         </q-toolbar-title>
-        
+
         <UiBtn icon="more_vert" flat>
           <q-menu>
             <div class="row no-wrap q-pa-md">
