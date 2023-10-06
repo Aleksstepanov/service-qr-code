@@ -26,7 +26,7 @@ import { axios } from 'src/utils'
 import { useAxios } from '@vueuse/integrations/useAxios'
 
 import PagePreLoader from 'src/components/page-pre-loader/PagePreLoader.vue'
-import FormPageProvider from './form/FormPageProvider.vue'
+import FormPageProvider from './form'
 import ConformitionDialog from 'src/components/conformition-dialog/ConformitionDialog.vue'
 
 //  @delete="state.showModal = true"
