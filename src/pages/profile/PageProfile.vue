@@ -1,6 +1,7 @@
 <template>
   <PagePreloader v-if="isLoading"/>
 
+  <UiAvatar :avatar="avatar"/>
   <FormPageProfile @update:user="onUpdUser($event)"/>
 
   <!-- <q-card v-else
@@ -35,18 +36,20 @@
 </template>
 <script setup>
 
-import { onMounted, ref } from 'vue' // computed,
+import { onMounted, computed, ref } from 'vue' //
 import { useAuthStore } from 'src/stores/auth.store'
 import { axios } from 'src/utils'
 import { emitter } from 'src/plugins'
 import PagePreloader from 'src/components/page-pre-loader'
 import FormPageProfile from 'src/pages/profile/form-page-profile'
+import UiAvatar from 'src/components/ui-avatar'
 const authStore = useAuthStore()
 
 // state
 const isLoading = ref(false)
 
 // computed
+const avatar = computed(() => authStore?.getUser?.avatar)
 // const userRole = computed(() => authStore?.getUser?.role || '')
 // const lastName = computed(() => authStore?.getUser?.last_name || '')
 // const firstName = computed(() => authStore?.getFirstName || '')

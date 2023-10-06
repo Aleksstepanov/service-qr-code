@@ -44,6 +44,7 @@ const routes = [
     component: () => import('pages/admin'),
     meta: metaAccount
   }
+
 ]
 
 export default routes

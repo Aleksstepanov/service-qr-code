@@ -11,7 +11,7 @@ export const useAuthStore = defineStore({
       return !!state.accessToken
     },
     getUser (state) {
-      return state.user
+      return JSON.parse(localStorage.getItem('userInfo'))
     },
     getLastName (state) {
       return state.user?.last_name || ''
@@ -32,7 +32,6 @@ export const useAuthStore = defineStore({
       localStorage.setItem('accessToken', accessToken)
     },
     setUser ({ user }) {
-      console.log(user)
       this.user = user
       localStorage.setItem('userInfo', JSON.stringify(user))
     },

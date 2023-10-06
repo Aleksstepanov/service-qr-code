@@ -1,6 +1,7 @@
 <template>
   <q-toolbar style="height: 10vh;">
     <q-toolbar-title>{{ title }}</q-toolbar-title>
+    <UiAvatar/>
     <template v-if="buttons?.length">
       <UiBtn v-for="(button, idx) in buttons"
              :key="idx"
@@ -15,6 +16,7 @@
 </template>
 <script setup>
 import UiBtn from 'src/components/ui-btn'
+import UiAvatar from '../ui-avatar'
 
 defineProps({
   title: {
