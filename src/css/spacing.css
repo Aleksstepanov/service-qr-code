@@ -272,6 +272,7 @@
   padding-left: var(--spacer-16);
 }
 
+
 .pt-20 {
   padding-top: var(--spacer-20);
 }
@@ -366,4 +367,9 @@
 
 .pl-60 {
   padding-left: var(--spacer-60);
+}
+/*padding left-right as a percentage of parent*/
+.plr-percent-2 {
+  padding-left: 2%;
+  padding-right: 2%;
 }

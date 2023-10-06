@@ -1,6 +1,6 @@
 import { required, maxLength, email } from '@vuelidate/validators'
 
-const requiredMsg = 'Это поле обязательно'
+const requiredMsg = 'This fields is required'
 
 export default () => {
   return {
@@ -11,7 +11,7 @@ export default () => {
       },
       email: {
         validator: email,
-        message: 'Введите корректный адрес электронной почты'
+        message: 'Enter a valid email address '
       }
     },
     password: {
@@ -21,7 +21,7 @@ export default () => {
       },
       maxLength: {
         validator: maxLength(8),
-        message: 'Максимальная длина пароля составляет 8 символов'
+        message: 'The maximum password length is 8 characters'
       }
     }
   }

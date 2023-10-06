@@ -1,5 +1,5 @@
 <template>
-  <div :class="[display, direction, justify, align, items, fullWidth ? 'full-width' : '']">
+  <div :class="[display, direction, justify, align, items, width, fullWidth ? 'full-width' : '']">
     <slot ></slot>
   </div>
 </template>
@@ -26,6 +26,10 @@ defineProps({
   items: {
     type: String,
     default: 'items-start'
+  },
+  width: {
+    type: String,
+    default: ''
   },
   fullWidth: {
     type: Boolean,
