@@ -13,7 +13,11 @@
 	"editor.defaultFormatter": "esbenp.prettier-vscode"
 },
 "cSpell.words": [
+	"убрать",
 	"axios",
-	"composables"
+	"composables",
+	"Conformition",
+	"vuelidate",
+	"vueuse"
 ]
 }

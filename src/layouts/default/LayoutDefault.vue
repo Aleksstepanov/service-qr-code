@@ -5,7 +5,7 @@
         <UiBtn
           :dense="true"
           :flat="flat"
-          :round="true"
+          round
           icon="menu"
           @click="toggleLeftDrawer"
         />
@@ -13,6 +13,7 @@
         <q-toolbar-title>
           <p class="q-mb-none">Сервис обработки платежных квитанций</p>
         </q-toolbar-title>
+        
         <UiBtn icon="more_vert" flat>
           <q-menu>
             <div class="row no-wrap q-pa-md">
@@ -52,7 +53,7 @@
           :key="item?.key"
           v-ripple
           clickable
-          @click="clickNavItem(item?.type)"
+          @click="$router.push(item?.to)"
         >
           <q-item-section style="max-width: 10%">
             <q-icon :name="item?.icon" style="color: #938f99" size="20px" />
@@ -66,7 +67,7 @@
 
     <q-page-container
       style="width: 100%"
-      class="flex justify-center align-center"
+      class="flex justify-center align-center bg-linear-gradient"
     >
       <slot></slot>
     </q-page-container>
@@ -123,7 +124,7 @@ defineProps({
   height: 100vh;
   /* min-height: var(--app-min-height); */
 }
-.q-page-container {
+.bg-linear-gradient  {
   background: -webkit-linear-gradient(
     to right,
     #00b4ff,

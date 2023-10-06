@@ -12,6 +12,7 @@
          :size="size"
          @click="type === 'submit' ? $emit('submit') : $emit('click')"
   ><slot></slot>
+
     <UiIcon v-if="prefixIcon && !loading" :icon="prefixIcon"/>
     <span v-if="label">
       {{ label }}</span>
@@ -48,6 +49,10 @@ defineProps({
     default: 'sm'
   },
   label: {
+    type: String,
+    default: ''
+  },
+  mask: {
     type: String,
     default: ''
   },

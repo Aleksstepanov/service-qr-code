@@ -1,7 +1,7 @@
 <template>
   <q-form class="form-login" @submit="onSubmit">
     <div class="flex row justify-center">
-      <p class="text-h1">Вход</p>
+      <p class="text-h1">Sign in</p>
     </div>
     <UiField full-width class="pt-20">
       <q-input
@@ -19,7 +19,7 @@
         v-model="fields.password"
         outlined
         class="input"
-        label="Пароль*"
+        label="Password*"
         :type="isTypeInputPassword ? 'password' : 'text'"
         :is-disabled="disabled"
         :error-message="validationErrors.password.message"
@@ -35,9 +35,11 @@
       </q-input>
     </UiField>
     <div class="flex row justify-center full-width mt-28">
-      <q-btn class="button button-primary" type="submit" :disable="disabled">
-        <p class="text-button-primary q-mb-none">Войти</p>
-      </q-btn>
+      <UiBtn class="button button-primary"
+             type="submit"
+             :disable="disabled"
+      ><p class="text-button-primary q-mb-none">Sign in</p>
+      </UiBtn>
     </div>
   </q-form>
 </template>
@@ -46,6 +48,7 @@ import { reactive, ref } from 'vue'
 import { useForm, useFormProps } from 'src/composables/form.js'
 import validationRules from './validation-rules.js'
 import UiField from 'src/components/ui-field'
+import UiBtn from 'src/components/ui-btn/UiBtn.vue'
 
 // props
 defineProps({
