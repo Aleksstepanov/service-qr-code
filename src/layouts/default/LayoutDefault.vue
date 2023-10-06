@@ -5,7 +5,7 @@
         <UiBtn
           :dense="true"
           :flat="flat"
-          :round="true"
+          round
           icon="menu"
           @click="toggleLeftDrawer"
         />
@@ -13,21 +13,11 @@
         <q-toolbar-title>
           <p class="q-mb-none">Сервис обработки платежных квитанций</p>
         </q-toolbar-title>
+        
         <UiBtn icon="more_vert" flat>
           <q-menu>
             <div class="row no-wrap q-pa-md">
               <div class="column items-center">
-                <!-- <q-avatar
-                  size="72px"
-                  class="cursor-pointer"
-                  @click="$router.push({ name: 'page-profile' })"
-                >
-
-                  <img v-if="avatar" :src="avatar">
-
-                  <img v-else src="/icons/icons8-no-image-96.png">
-
-                </q-avatar> -->
                 <UiAvatar
                   :avatar="avatar"
                   @click:avatar="$router.push({ name: 'page-profile' })"
