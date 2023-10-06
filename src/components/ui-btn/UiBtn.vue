@@ -33,8 +33,6 @@ defineProps({
   },
   to: {
     type: [String, Object],
-    // @review required удалить
-    requred: false,
     default: null
   },
   disabled: {
@@ -47,8 +45,7 @@ defineProps({
   },
   size: {
     type: String,
-    // @review лучше по дефолту что то передать
-    default: ''
+    default: 'sm'
   },
   label: {
     type: String,
@@ -87,7 +84,6 @@ defineProps({
     default: false
   },
   round: {
-    // @review не думаю, что нам этот проп вообще нужен будет
     type: Boolean,
     default: false
   }
