@@ -46,7 +46,7 @@ const routes = [
   },
   {
     path: '/providers',
-    name: 'page-providers',
+    name: 'page-service-providers',
     component: () => import('pages/providers'),
     meta: metaAccount
   },

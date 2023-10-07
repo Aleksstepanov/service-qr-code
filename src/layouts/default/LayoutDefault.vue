@@ -84,7 +84,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { navListSideBar } from 'src/services/nav/nav-items'
+import { useNavItems } from 'src/composables/navItems'
 import { useAuthStore } from 'src/stores/auth.store'
 
 import UiBtn from 'src/components/ui-btn/UiBtn.vue'
@@ -112,12 +112,9 @@ const onConfirm = () => {
   authStore.logout()
 }
 
-// defineProps({
-//   titleLogout: {
-//     type: String,
-//     default: 'Logout'
-//   }
-// })
+// computed
+const { navItems: navListSideBar } = useNavItems()
+
 </script>
 <style scoped>
 .layout--default {
