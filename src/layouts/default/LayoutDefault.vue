@@ -5,7 +5,7 @@
         <UiBtn
           :dense="true"
           :flat="flat"
-          :round="true"
+          round
           icon="menu"
           @click="toggleLeftDrawer"
         />
@@ -13,7 +13,9 @@
         <q-toolbar-title>
           <p class="q-mb-none">{{$t('title')}}</p>
         </q-toolbar-title>
+
         <LanguageSwitcher/>
+
         <UiBtn icon="more_vert" flat>
           <q-menu>
             <div class="row no-wrap q-pa-md">
