@@ -4,10 +4,12 @@
       v-if="data?.length > 0"
       :pagination="pagination"
       :class-list="classList"
+      to="page-provider"
       :title="title"
-      :columns="adminHeadersConfig"
+      :columns="providerHeadersConfig"
       :rows="data"
       @delete="$emit('delete', $event)"
+      @update:fields="$emit('update:fields', $event)"
       @update:pagination="$emit('update:pagination', $event)"
     />
     <p v-else>No data...</p>
@@ -15,10 +17,12 @@
   </div>
 </template>
 <script setup>
-import { useAdminHeadersConfig } from './headersConfig'
+// import headersConfig from './headersConfig'
 import TableWrapper from 'src/components/table-wrapper/TableWrapper.vue'
+import { useProviderHeadersConfig } from './headersConfig'
 
-const { adminHeadersConfig } = useAdminHeadersConfig()
+const { providerHeadersConfig } = useProviderHeadersConfig()
+
 // props
 defineProps({
   classList: {

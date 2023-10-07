@@ -1,18 +1,18 @@
 <template>
   <PagePreLoader v-if="isLoading" />
 
-  <FormPageAdmin
+  <FormPageProvider
     v-else
     :is-new="isNew"
-    :data="state.admin"
-    @cancel="$router.push({ name: 'page-admins' })"
+    :data="state.provider"
+    @cancel="$router.push({ name: 'page-providers' })"
     @submit="onSubmit"
-    @delete="state.showModal = true"
+    @delete="state.showModal = true, $event"
   />
 
   <ConformitionDialog
     v-model:show="state.showModal"
-    :title="$t('delete_admin')"
+    :title="$t('delete_provider')"
     :title-cancel="$t('cancel')"
     @confirm="onDelete"
   />
@@ -20,60 +20,62 @@
 <script setup>
 import { reactive, computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAdminsStore } from 'src/stores/admins.store'
+import { useProvidersStore } from 'src/stores/providers.store'
 import { emitter } from 'src/plugins'
 import { axios } from 'src/utils'
 import { useAxios } from '@vueuse/integrations/useAxios'
 
 import PagePreLoader from 'src/components/page-pre-loader/PagePreLoader.vue'
-import FormPageAdmin from './form'
+import FormPageProvider from './form'
 import ConformitionDialog from 'src/components/conformition-dialog/ConformitionDialog.vue'
 
+//  @delete="state.showModal = true"
 const $route = useRoute()
 const $router = useRouter()
-const adminStore = useAdminsStore()
+const providerStore = useProvidersStore()
 
 // state
 const state = reactive({
-  admin: null,
+  provider: null,
   showModal: false
 })
 const isLoading = ref(false)
 
 // computed
 
-const idAdmin = computed(() => $route.params.id)
-const isNew = computed(() => !idAdmin.value)
-
+const idProvider = computed(() => $route.params.id)
+const isNew = computed(() => !idProvider.value)
+console.log('idProvider', idProvider.value)//
 // methods
 const { execute } = useAxios(
-  '/api/admin/users/new',
+  '/api/admin/providers/new',
   {
     method: 'POST'
   },
   axios,
   { immediate: false }
 )
-const fetchAdmin = async () => {
+const fetchProvider = async () => {
   if (isNew.value) return
   isLoading.value = false
-  state.admin = adminStore.getAdmin(Number(idAdmin.value))
+  state.provider = providerStore.getProvider(Number(idProvider.value))
+  console.log('idProvider.value', idProvider.value)
 }
 const onSubmit = async (payload) => {
   if (isNew.value) {
-    await createAdmin({
+    await createProvider({
       ...payload,
-      role: 'ADMIN'
+      role: 'PROVIDER'
     })
   } else {
-    await updateAdmin({
+    await updateProvider({
       ...payload,
-      id: state.admin?.id,
-      role: 'ADMIN'
+      id: state.provider?.id,
+      role: 'PROVIDER'
     })
   }
 }
-const createAdmin = async (data) => {
+const createProvider = async (data) => {
   try {
     isLoading.value = true
     await execute({
@@ -90,14 +92,14 @@ const createAdmin = async (data) => {
     })
   } finally {
     isLoading.value = false
-    await $router.push({ name: 'page-admins' })
+    await $router.push({ name: 'page-providers' })
   }
 }
-const updateAdmin = async (data) => {
+const updateProvider = async (data) => {
   try {
     isLoading.value = true
     await execute(
-      '/api/admin/users/',
+      '/api/admin/providers/',
       {
         method: 'PUT',
         data
@@ -114,12 +116,12 @@ const updateAdmin = async (data) => {
     })
   } finally {
     isLoading.value = false
-    await $router.push({ name: 'page-admins' })
+    await $router.push({ name: 'page-providers' })
   }
 }
 const onDelete = async (id) => {
   try {
-    await adminStore.deleteAdmin({ id })
+    await providerStore.deleteProvider({ id })
   } catch (error) {
     console.log(error)
     emitter.emit('notify', {
@@ -133,7 +135,7 @@ const onDelete = async (id) => {
 
 // life hooks
 onMounted(async () => {
-  console.log('idAdmin', idAdmin.value)
-  await fetchAdmin()
+  console.log('idProvider', idProvider.value)
+  await fetchProvider()
 })
 </script>

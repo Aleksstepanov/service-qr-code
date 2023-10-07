@@ -23,64 +23,99 @@
           },
         },
       ]"
-      @click:refresh="fetchAdmins"
-      @click:add="$router.push({ name: 'page-admin-new' })"
+      @click:refresh="fetchProviders"
+      @click:add="$router.push({ name: 'page-provider-new' })"
     />
-    <GridAdmins
-      :data="adminsStore.getAdmins"
+    <GridPageProviders
+      :data="providersStore.getProviders"
       :drawer="drawer"
-      @delete="deleteBtnClickHandler"
+      @delete="confirmWithId"
       @update:drawer="drawer = !drawer"
       @update:fields="updateFields($event)"
     />
   </div>
 
   <ConformitionDialog
-    v-model:show="state.showModal"
-    :title="$t('delete_admin')"
+    v-model:show="statePage.showModal"
+    :title="$t('delete_provider')"
     :title-cancel="$t('cancel')"
-    @confirm="onDelete"
+    @confirm=" confirmDelete"
   />
 </template>
 <script setup>
+// state.showModal = true
+
 import { computed, ref, reactive, onMounted } from 'vue'
 import { emitter } from 'src/plugins'
 import { axios } from 'src/utils'
 import { useAxios } from '@vueuse/integrations/useAxios'
 import { useRouter } from 'vue-router'
-import { useAdminsStore } from 'src/stores/admins.store'
+import { useProvidersStore } from 'src/stores/providers.store'
+
 import { useI18n } from 'vue-i18n'
 import PagePreLoader from 'src/components/page-pre-loader'
-import GridAdmins from './grid'
+import GridPageProviders from './grid'
 import PageHeader from 'src/components/page-header/PageHeader.vue'
 import ConformitionDialog from 'src/components/conformition-dialog/ConformitionDialog.vue'
 
-const adminsStore = useAdminsStore()
-const $router = useRouter()
 const { t: $t } = useI18n()
+
+defineProps({
+  props: {
+    id: {
+      type: Number
+    }
+  }
+})
+defineEmits(['update', 'delete'])
+const providersStore = useProvidersStore()
+const $router = useRouter()
+//
+const updateFields = (fields) => {
+  console.log('fields', fields)
+}
 // state
 const drawer = ref(false)
-const selectedId = ref(null)
-const state = reactive({
-  showModal: false
+const statePage = reactive({
+  showModal: false,
+  id: null
 })
+
 // query
 
-// computed
-const title = computed(() => `${$t('admins')} - ${totalAdmins.value}`)
-const totalAdmins = computed(() => (adminsStore.getAdmins)?.length || 0)
+//
+
+const totalProviders = computed(() => (providersStore.getProviders)?.length || 0)
+const title = computed(() => `${$t('service_providers')} ${totalProviders.value}`)
 
 // methods
-const deleteBtnClickHandler = (id) => {
-  state.showModal = true
-  console.log(id)
-  selectedId.value = id
+function confirmWithId (id) {
+  console.log('id', id)
+  statePage.showModal = true
+  statePage.id = id
 }
-const onDelete = async () => {
-  if (!selectedId.value) return
+function confirmDelete (id) {
+  onDelete(statePage.id)
+}
+
+const {
+  execute,
+  data: providers,
+  isLoading
+} = useAxios(
+  '/api/admin/providers/',
+  {
+    method: 'POST'
+  },
+  axios,
+  { immediate: false }
+)
+
+const onDelete = async (id) => {
+  console.log(id + ' id!!!!!')
   try {
-    await adminsStore.deleteAdmin({ id: selectedId.value })
-    await fetchAdmins()
+    await providersStore.deleteProvider({ id })
+    await fetchProviders()
   } catch (error) {
     console.log(error)
     emitter.emit('notify', {
@@ -88,23 +123,11 @@ const onDelete = async () => {
       message: error?.message
     })
   } finally {
-    state.showModal = false
+    statePage.showModal = false
   }
 }
 
-const {
-  execute,
-  data: admins,
-  isLoading
-} = useAxios(
-  '/api/admin/users/',
-  {
-    method: 'POST'
-  },
-  axios,
-  { immediate: false }
-)
-const fetchAdmins = async () => {
+const fetchProviders = async () => {
   try {
     await execute({
       data: {
@@ -112,14 +135,14 @@ const fetchAdmins = async () => {
         skip: 0,
         orderBy: [
           {
-            field: 'fullName',
+            field: 'company',
             order: 'ASC'
           }
         ]
       }
     })
-    adminsStore.setAdmins({
-      admins: admins.value?.map((d, idx) => ({
+    providersStore.setProviders({
+      providers: providers.value?.map((d, idx) => ({
         ...d,
         num: idx + 1
       }))
@@ -134,6 +157,6 @@ const fetchAdmins = async () => {
 
 // life hooks
 onMounted(async () => {
-  await fetchAdmins()
+  await fetchProviders()
 })
 </script>

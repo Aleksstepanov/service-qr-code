@@ -11,13 +11,16 @@
         />
 
         <q-toolbar-title>
-          <p class="q-mb-none">Сервис обработки платежных квитанций</p>
+          <p class="q-mb-none">{{$t('title')}}</p>
         </q-toolbar-title>
+
+        <LanguageSwitcher/>
 
         <UiBtn icon="more_vert" flat>
           <q-menu>
             <div class="row no-wrap q-pa-md">
               <div class="column items-center">
+
                 <UiAvatar
                   :avatar="avatar"
                   @click:avatar="$router.push({ name: 'page-profile' })"
@@ -30,7 +33,7 @@
                 <UiBtn
                   v-bind="$attrs"
                   :v-close-popup="true"
-                  :label="titleLogout"
+                  :label="$t('logout')"
                   class="primary-white"
                   :push="true"
                   :size="xs"
@@ -74,21 +77,22 @@
   </q-layout>
   <ConformitionDialog
     v-model:show="showConfirm"
-    title="Вы действительно хотите выйти?"
-    title-cancel="Отмена"
-    title-confirm="Выйти"
+    :title="$t('delete_provider')"
+    :title-cancel="$t('cancel')"
+    :title-confirm="$t('logout')"
     @confirm="onConfirm"
   />
 </template>
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { navListSideBar } from 'src/services/nav/nav-items'
+import { useNavItems } from 'src/composables/navItems'
 import { useAuthStore } from 'src/stores/auth.store'
 
 import UiBtn from 'src/components/ui-btn/UiBtn.vue'
 import UiAvatar from 'src/components/ui-avatar/'
 import ConformitionDialog from 'src/components/conformition-dialog'
+import LanguageSwitcher from 'src/components/language-switcher'
 
 // eslint-disable-next-line no-unused-vars
 const authStore = useAuthStore()
@@ -110,12 +114,9 @@ const onConfirm = () => {
   authStore.logout()
 }
 
-defineProps({
-  titleLogout: {
-    type: String,
-    default: 'Logout'
-  }
-})
+// computed
+const { navItems: navListSideBar } = useNavItems()
+
 </script>
 <style scoped>
 .layout--default {
@@ -140,3 +141,4 @@ defineProps({
   padding: 0 5px;
 }
 </style>
+//  <LanguageSwitcher/>
